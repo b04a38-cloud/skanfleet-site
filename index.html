@@ -1,0 +1,844 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#020711">
+<meta name="description" content="СКАНФЛИТ — тахографы, ГЛОНАСС/GPS и контроль топлива для транспорта.">
+<title>СКАНФЛИТ — умный контроль автопарка</title>
+<style>
+:root{--bg:#020711;--bg2:#061426;--panel:rgba(8,24,48,.78);--panel2:#081b35;--line:rgba(70,160,255,.18);--blue:#1485ff;--cyan:#00e0ff;--green:#20e19a;--text:#f4f8ff;--muted:#8fa4bf;--max:1280px;--r:26px}
+*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;color:var(--text);font-family:Inter,Segoe UI,Arial,sans-serif;background:radial-gradient(1000px 600px at 55% -5%,#0b3670 0%,rgba(5,31,66,.62) 32%,transparent 70%),var(--bg);overflow-x:hidden}body:before{content:"";position:fixed;inset:0;pointer-events:none;opacity:.11;background-image:linear-gradient(rgba(0,166,255,.12) 1px,transparent 1px),linear-gradient(90deg,rgba(0,166,255,.12) 1px,transparent 1px);background-size:58px 58px;mask-image:linear-gradient(#000,transparent 75%)}
+a{text-decoration:none;color:inherit}button,input,textarea{font:inherit}.wrap{width:min(var(--max),calc(100% - 40px));margin:auto}.btn{display:inline-flex;align-items:center;justify-content:center;gap:9px;border:0;border-radius:14px;padding:14px 20px;color:#fff;font-weight:850;cursor:pointer;background:linear-gradient(135deg,#0c7dff,#00c9ff);box-shadow:0 12px 40px rgba(0,137,255,.25);transition:.25s}.btn:hover{transform:translateY(-2px);box-shadow:0 18px 48px rgba(0,137,255,.38)}.ghost{display:inline-flex;align-items:center;justify-content:center;border:1px solid rgba(74,157,255,.27);background:rgba(5,22,45,.52);border-radius:14px;padding:13px 19px;color:#d9eaff}.kicker{color:#34c3ff;text-transform:uppercase;letter-spacing:2px;font-size:11px;font-weight:900}h1,h2,h3,p{margin-top:0}h1{font-size:clamp(48px,6.3vw,86px);line-height:.94;letter-spacing:-4px;margin:22px 0}h1 span{background:linear-gradient(90deg,#fff,#4bc8ff 62%,#1485ff);-webkit-background-clip:text;color:transparent;text-shadow:0 0 40px rgba(0,165,255,.18)}h2{font-size:clamp(35px,4.3vw,57px);line-height:1;letter-spacing:-2px;margin:10px 0 15px}p{color:var(--muted);line-height:1.7}.section-head{max-width:800px;margin-bottom:40px}.section-head p{font-size:18px}.pill{display:inline-flex;align-items:center;gap:9px;padding:9px 14px;border:1px solid var(--line);background:rgba(5,34,68,.4);border-radius:999px;color:#b7dcf7;font-size:12px}.live-dot{width:7px;height:7px;border-radius:50%;background:var(--green);box-shadow:0 0 15px rgba(32,225,154,.9);animation:blink 1.7s infinite}@keyframes blink{50%{opacity:.35}}
+header{position:fixed;z-index:50;top:0;left:0;right:0;background:rgba(2,7,17,.68);backdrop-filter:blur(20px);border-bottom:1px solid rgba(80,160,255,.1)}.nav{height:78px;display:flex;align-items:center;justify-content:space-between;gap:20px}.logo{display:flex;align-items:center;gap:10px;font-weight:950;letter-spacing:.5px}.logo img{width:46px;height:46px;object-fit:cover;border-radius:12px}.navlinks{display:flex;gap:25px;font-size:13px;color:#b6c6dc}.navlinks a:hover{color:#fff}.mobile-menu{display:none;background:none;border:0;color:#fff;font-size:28px}
+.hero{padding:145px 0 90px;min-height:820px;display:flex;align-items:center;position:relative}.hero-grid{display:grid;grid-template-columns:1fr 1fr;gap:50px;align-items:center}.lead{max-width:670px;font-size:20px}.actions{display:flex;gap:12px;flex-wrap:wrap;margin-top:28px}.trust{display:flex;gap:18px;flex-wrap:wrap;margin-top:32px;color:#7189a7;font-size:11px}.trust b{color:#dbe9f7;font-size:12px}.hero-screen{position:relative;min-height:560px;display:grid;place-items:center}.orb{position:absolute;width:480px;height:480px;border-radius:50%;background:radial-gradient(circle,rgba(0,170,255,.25),transparent 67%);filter:blur(4px)}.screen{position:relative;width:min(100%,610px);border:1px solid rgba(70,165,255,.25);border-radius:26px;background:#07162c;box-shadow:0 35px 110px rgba(0,72,180,.28);overflow:hidden;transform:perspective(1000px) rotateY(-4deg) rotateX(2deg)}.screen-top{height:47px;padding:0 14px;display:flex;align-items:center;justify-content:space-between;background:#081d38;border-bottom:1px solid rgba(100,170,235,.13)}.dots{display:flex;gap:5px}.dots i{width:7px;height:7px;border-radius:50%;background:#3e6288}.screen-title{font-size:10px;color:#91aac6}.screen-live{font-size:9px;color:#50e2bd}.screen-body{display:grid;grid-template-columns:155px 1fr;height:390px}.mini-side{padding:12px;background:#061329;border-right:1px solid rgba(75,155,230,.11)}.mini-search{padding:8px 9px;border:1px solid rgba(72,148,220,.15);border-radius:7px;color:#617e9f;font-size:9px;margin-bottom:10px}.mini-row{padding:10px 7px;border-radius:7px;display:flex;gap:7px;align-items:center}.mini-row.active{background:rgba(11,119,210,.17)}.mini-status{width:5px;height:5px;border-radius:50%;background:var(--green)}.mini-row b{display:block;font-size:9px}.mini-row span{display:block;color:#607a99;font-size:7px;margin-top:2px}.mini-map{position:relative;overflow:hidden;background-color:#0a2942;background-image:linear-gradient(rgba(111,176,208,.09) 1px,transparent 1px),linear-gradient(90deg,rgba(111,176,208,.09) 1px,transparent 1px);background-size:38px 38px}.mini-map:before{content:"";position:absolute;inset:-20%;background:radial-gradient(circle at 55% 48%,rgba(0,209,255,.16),transparent 31%),linear-gradient(120deg,rgba(12,48,69,.15),rgba(1,13,27,.5))}.road{position:absolute;height:8px;border-top:3px solid rgba(180,215,230,.14);border-radius:50%}.road.a{width:120%;left:-10%;top:30%;transform:rotate(16deg)}.road.b{width:120%;left:-8%;top:58%;transform:rotate(-12deg)}.road.c{width:95%;left:15%;top:73%;transform:rotate(9deg)}.route{position:absolute;width:67%;height:3px;left:15%;top:58%;background:linear-gradient(90deg,#00e0ff,#1485ff);box-shadow:0 0 15px #00bfff;transform:rotate(-20deg)}.pin{position:absolute;width:24px;height:24px;border-radius:50%;display:grid;place-items:center;background:#09203b;border:2px solid var(--cyan);box-shadow:0 0 0 5px rgba(0,224,255,.1),0 0 25px rgba(0,195,255,.5);font-size:11px}.pin.p1{left:39%;top:52%}.pin.p2{left:66%;top:39%;border-color:#4b91ff}.pin.p3{left:55%;top:68%;border-color:var(--green)}.mini-card{position:absolute;left:12px;right:12px;bottom:12px;background:rgba(4,18,36,.91);border:1px solid rgba(75,160,240,.22);border-radius:9px;padding:9px 10px;display:flex;justify-content:space-between;gap:8px;align-items:center}.mini-card b{font-size:9px}.mini-card small{font-size:7px;color:#6582a1}.mini-card strong{font-size:10px}.hero-float{position:absolute;padding:13px 15px;border-radius:14px;border:1px solid rgba(69,161,255,.28);background:rgba(4,19,40,.9);backdrop-filter:blur(12px);box-shadow:0 20px 50px rgba(0,0,0,.3)}.hero-float b{display:block;font-size:18px}.hero-float small{color:#7892b0;font-size:10px}.hf1{right:-10px;top:90px}.hf2{left:-18px;bottom:68px}
+section{padding:105px 0}.cards{display:grid;grid-template-columns:repeat(3,1fr);gap:17px}.card{position:relative;overflow:hidden;min-height:285px;padding:30px;border:1px solid var(--line);border-radius:var(--r);background:linear-gradient(145deg,rgba(10,37,75,.82),rgba(3,14,31,.88));transition:.25s}.card:hover{transform:translateY(-7px);border-color:rgba(54,169,255,.45);box-shadow:0 25px 70px rgba(0,95,210,.17)}.card .num{position:absolute;right:22px;top:20px;color:#294d76;font-size:12px;font-weight:900}.card .ico{width:50px;height:50px;display:grid;place-items:center;border:1px solid rgba(65,166,255,.25);border-radius:15px;background:rgba(6,51,99,.45);font-size:24px;margin-bottom:22px}.card h3{font-size:24px;margin-bottom:10px}.card p{font-size:14px}
+.demo{border:1px solid rgba(65,160,255,.23);border-radius:28px;background:#061327;overflow:hidden;box-shadow:0 35px 100px rgba(0,70,160,.16)}.demo-bar{height:60px;display:flex;align-items:center;justify-content:space-between;padding:0 17px;border-bottom:1px solid rgba(80,160,230,.13);background:#071a34}.demo-brand{display:flex;align-items:center;gap:8px;font-size:12px}.demo-brand i{width:8px;height:8px;border-radius:50%;background:var(--cyan);box-shadow:0 0 13px var(--cyan)}.demo-tabs{display:flex;gap:5px}.demo-tab{border:0;background:transparent;color:#607d9d;padding:8px 10px;border-radius:7px;font-size:10px;cursor:pointer}.demo-tab.active{background:rgba(0,141,255,.15);color:#6bdcff}.demo-body{display:grid;grid-template-columns:285px 1fr;min-height:560px}.object-panel{background:#061329;border-right:1px solid rgba(78,155,225,.12);padding:14px}.search{border:1px solid rgba(73,151,223,.15);border-radius:9px;background:#091c37;padding:10px;color:#6883a3;font-size:11px;margin-bottom:12px}.group{display:flex;justify-content:space-between;color:#7791af;font-size:10px;font-weight:850;padding:10px 6px}.obj{display:flex;align-items:center;gap:9px;padding:11px 8px;border-radius:9px;cursor:pointer;transition:.2s}.obj:hover,.obj.selected{background:rgba(11,119,211,.16)}.obj.selected{box-shadow:inset 2px 0 var(--cyan)}.st{width:7px;height:7px;border-radius:50%;background:#5e7086;flex:0 0 7px}.st.on{background:var(--green);box-shadow:0 0 9px rgba(32,225,154,.7)}.obj b{display:block;font-size:11px}.obj small{display:block;color:#607a98;font-size:9px;margin-top:3px}.obj em{margin-left:auto;color:#7591b0;font-size:9px;font-style:normal}.realmap{position:relative;overflow:hidden;min-height:560px;background-color:#0a2a42;background-image:linear-gradient(rgba(122,183,213,.08) 1px,transparent 1px),linear-gradient(90deg,rgba(122,183,213,.08) 1px,transparent 1px);background-size:56px 56px}.realmap:before{content:"";position:absolute;inset:0;background:radial-gradient(circle at 53% 44%,rgba(0,206,255,.13),transparent 29%),linear-gradient(135deg,rgba(6,37,56,.05),rgba(2,15,29,.62))}.rline{position:absolute;height:12px;border-top:4px solid rgba(176,214,229,.16);border-radius:50%;filter:blur(.2px)}.rline.one{width:120%;left:-10%;top:27%;transform:rotate(16deg)}.rline.two{width:120%;left:-8%;top:58%;transform:rotate(-12deg)}.rline.three{width:105%;left:5%;top:76%;transform:rotate(8deg)}.rline.four{width:90%;left:14%;top:43%;transform:rotate(72deg)}.demo-route{position:absolute;left:11%;top:57%;width:73%;height:4px;border-radius:99px;background:linear-gradient(90deg,#00dfff,#1485ff);box-shadow:0 0 18px rgba(0,211,255,.8);transform:rotate(-21deg)}.zone{position:absolute;left:43%;top:28%;width:175px;height:120px;border:1px dashed rgba(0,223,255,.48);background:rgba(0,169,255,.05);color:#55cfff;font-size:9px;padding:9px}.m{position:absolute;z-index:3;width:38px;height:38px;border-radius:50%;display:grid;place-items:center;background:#08203a;border:2px solid var(--cyan);box-shadow:0 0 0 6px rgba(0,224,255,.1),0 0 30px rgba(0,185,255,.55);font-size:17px;cursor:pointer;transition:.25s}.m:hover{transform:scale(1.12)}.m.a{left:38%;top:51%}.m.b{left:68%;top:38%;border-color:#4e93ff}.m.c{left:56%;top:69%;border-color:var(--green)}.map-label{position:absolute;z-index:4;background:rgba(3,16,32,.9);border:1px solid rgba(69,154,226,.22);padding:6px 8px;border-radius:6px;color:#c0d6e8;font-size:9px}.map-label.a{left:34%;top:44%}.map-label.b{left:64%;top:31%}.map-tools{position:absolute;right:15px;top:15px;z-index:6;display:flex;flex-direction:column;gap:5px}.map-tools button{width:34px;height:34px;border-radius:8px;border:1px solid rgba(75,153,222,.22);background:rgba(4,19,37,.9);color:#b4cbe0;cursor:pointer}.object-card{position:absolute;z-index:7;left:18px;right:18px;bottom:18px;border:1px solid rgba(71,161,239,.25);background:rgba(4,19,37,.91);backdrop-filter:blur(14px);border-radius:14px;padding:14px 16px;display:flex;align-items:center;justify-content:space-between;gap:18px}.object-card b{font-size:13px}.object-card small{display:block;color:#66809f;font-size:9px;margin-top:4px}.stats{display:flex;gap:18px}.stats span{font-size:13px;font-weight:900}.stats i{font-style:normal;color:#66809f;font-size:9px;font-weight:500}.demo-note{display:flex;justify-content:space-between;align-items:center;padding:14px 17px;border-top:1px solid rgba(70,150,220,.1);color:#627e9e;font-size:10px}.demo-note strong{color:#9fc0de}
+.metrics{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-top:18px}.metric{padding:22px;border:1px solid var(--line);border-radius:20px;background:linear-gradient(145deg,rgba(7,28,58,.8),rgba(3,14,31,.8))}.metric strong{display:block;font-size:30px;letter-spacing:-1px}.metric span{color:#7890ae;font-size:11px}.metric .bar{height:4px;border-radius:10px;background:#0d2847;margin-top:14px;overflow:hidden}.metric .bar i{display:block;height:100%;width:var(--w);background:linear-gradient(90deg,#1485ff,#00e0ff);border-radius:10px}
+/* v9 data dashboard and active details */
+.data-dashboard{display:grid;grid-template-columns:1.15fr 1fr 1fr 1fr;gap:14px;margin-top:22px}.data-card{position:relative;overflow:hidden;min-height:280px;padding:24px;border:1px solid var(--line);border-radius:22px;background:linear-gradient(145deg,rgba(8,34,67,.88),rgba(3,14,30,.9));box-shadow:0 18px 55px rgba(0,55,120,.10)}.data-card:after{content:"";position:absolute;width:150px;height:150px;border-radius:50%;right:-70px;top:-70px;background:radial-gradient(circle,rgba(0,198,255,.16),transparent 68%)}.data-card-top{display:flex;align-items:center;justify-content:space-between}.data-icon{width:40px;height:40px;border-radius:12px;display:grid;place-items:center;background:rgba(0,174,255,.10);border:1px solid rgba(60,183,255,.20);color:#69ddff;font-size:20px}.data-tag{font-size:8px;letter-spacing:1.2px;color:#61dcbf;border:1px solid rgba(47,224,167,.18);background:rgba(47,224,167,.06);padding:6px 8px;border-radius:999px}.data-big{font-size:48px;line-height:1;font-weight:900;letter-spacing:-2px;margin-top:28px;color:#f1fbff}.data-big span{font-size:24px;color:#62d8ff;margin-left:3px}.data-big span small{font-size:9px;letter-spacing:.5px;color:#6f89a4;margin-left:5px}.data-card h3{font-size:17px;margin:13px 0 6px}.data-card p{font-size:11px;line-height:1.55;margin-bottom:15px}.data-pills{display:flex;flex-wrap:wrap;gap:6px}.data-pills span{font-size:8px;color:#9fc2dc;border:1px solid rgba(80,155,215,.14);background:rgba(5,26,49,.7);border-radius:999px;padding:6px 8px}.data-line{height:6px;border-radius:99px;background:rgba(95,135,170,.16);overflow:hidden;margin-top:20px}.data-line i{display:block;height:100%;border-radius:99px;background:linear-gradient(90deg,#0d8cff,#00dfff);box-shadow:0 0 15px rgba(0,215,255,.45)}.data-line.full i{width:100%;background:linear-gradient(90deg,#20e19a,#00dfff)}.fuel-meter{display:flex;align-items:center;gap:16px;margin-top:16px}.fuel-tank{position:relative;width:38px;height:112px;border:1px solid rgba(83,171,224,.28);border-radius:9px 9px 7px 7px;background:rgba(5,23,41,.72);overflow:hidden;box-shadow:inset 0 0 0 3px rgba(4,18,32,.35)}.fuel-tank:before{content:'';position:absolute;top:-7px;left:9px;width:18px;height:8px;border:1px solid rgba(83,171,224,.28);border-bottom:0;border-radius:4px 4px 0 0;background:#081a2e}.fuel-fill{position:absolute;left:0;right:0;bottom:0;height:38%;background:linear-gradient(180deg,#00dfff,#0d8cff);box-shadow:0 -6px 18px rgba(0,215,255,.28);transition:height .25s}.fuel-mark{position:absolute;right:-24px;font-size:7px;color:#5f7995}.fuel-mark.m100{top:1px}.fuel-mark.m50{top:50%;transform:translateY(-50%)}.fuel-mark.m0{bottom:1px}.fuel-meter-info{min-width:0}.fuel-meter-info strong{display:block;font-size:25px;line-height:1;color:#f1fbff}.fuel-meter-info strong span{font-size:14px;color:#62d8ff;margin-left:2px}.fuel-meter-info b{display:block;margin-top:7px;font-size:10px;color:#a7c6dc}.fuel-meter-info small{display:block;margin-top:5px;color:#6f89a4;font-size:8px}.data-card small{display:block;color:#6d88a4;font-size:8px;margin-top:7px}.contact-lead{font-size:13px;max-width:650px;margin:14px 0 14px}.contact-reasons{display:grid;grid-template-columns:1fr 1fr;gap:7px;margin:14px 0}.contact-reasons span{padding:9px 10px;border:1px solid rgba(70,160,255,.11);background:rgba(6,27,49,.45);border-radius:10px;color:#a9c5dc;font-size:10px}.contact-reasons span:before{content:'✓';color:#43ddb0;margin-right:7px}.drawer-summary{position:relative}.drawer-close{position:absolute;right:0;top:-3px;width:28px;height:28px;border-radius:8px;border:1px solid rgba(80,160,220,.15);background:rgba(7,27,47,.8);color:#9eb6cb;cursor:pointer;font-size:18px}.drawer-tabs button{cursor:pointer}.accordion-row{cursor:pointer;display:block!important}.accordion-row .acc-title{display:flex;justify-content:space-between;align-items:center}.accordion-row .acc-body{display:none;color:#7893ad;font-size:10px;line-height:1.5;padding:7px 0 2px}.accordion-row.expanded .acc-body{display:block}.accordion-row.expanded .acc-arrow{transform:rotate(180deg)}.acc-arrow{transition:.2s;color:#7fa3bf}
+@media(min-width:901px){.mobile-drawer{display:block;position:absolute;z-index:31;right:16px;left:auto;top:16px;bottom:16px;width:min(390px,calc(100% - 32px));max-height:none;overflow:auto;background:rgba(7,17,30,.98);border:1px solid rgba(85,170,220,.22);border-radius:20px;padding:12px 15px 18px;box-shadow:0 25px 70px rgba(0,0,0,.45);transform:translateX(24px);opacity:0;pointer-events:none;transition:.25s}.mobile-drawer.open{transform:translateX(0);opacity:1;pointer-events:auto}.mobile-drawer .drawer-grab{display:none}.mobile-drawer .drawer-close{right:10px;top:8px}.mobile-drawer .drawer-summary{padding-right:36px}.mobile-drawer .drawer-tabs{display:flex}}.mobile-drawer .drawer-tabs{display:flex}.mobile-drawer .drawer-summary{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:3px 34px 12px 0}.mobile-drawer .drawer-summary b{font-size:15px}.mobile-drawer .drawer-summary small{display:block;color:#68839e;margin-top:4px;font-size:9px}.mobile-drawer .drawer-summary>span{color:#2fe0a7;font-size:10px;font-weight:800}.mobile-drawer .drawer-close{right:0;top:0}.desktop-object-card{grid-template-columns:1fr auto auto}.doc-expand{color:#dff7ff;background:linear-gradient(135deg,#087cff,#00bfe8);border-color:transparent;box-shadow:0 8px 22px rgba(0,150,255,.22)}.doc-expand:hover{transform:translateY(-1px)} }
+@media(max-width:900px){.data-dashboard{grid-template-columns:1fr 1fr}.data-card{min-height:245px}.contact-reasons{grid-template-columns:1fr}.mobile-drawer .drawer-summary{padding-right:36px}}
+@media(max-width:560px){.data-dashboard{grid-template-columns:1fr}.data-card{min-height:220px}.data-big{font-size:42px}}
+
+.fleet{display:grid;grid-template-columns:repeat(4,1fr);gap:15px}.fleet-card{padding:23px;border:1px solid var(--line);border-radius:21px;background:linear-gradient(145deg,rgba(9,31,63,.75),rgba(3,14,31,.85));transition:.25s}.fleet-card:hover{transform:translateY(-5px);border-color:rgba(58,163,255,.4)}.fleet-ico{font-size:29px;margin-bottom:18px}.fleet-card b{font-size:17px}.fleet-card p{font-size:12px;margin:7px 0 0}
+.benefits{display:grid;grid-template-columns:1fr 1fr;gap:12px}.benefit{display:flex;gap:14px;align-items:flex-start;padding:20px;border:1px solid rgba(63,148,235,.15);background:rgba(7,25,52,.52);border-radius:17px}.check{width:29px;height:29px;flex:0 0 29px;display:grid;place-items:center;border-radius:50%;background:rgba(0,210,166,.11);border:1px solid rgba(32,225,154,.25);color:var(--green);font-weight:900}.benefit b{display:block;font-size:14px}.benefit span{display:block;color:#7088a5;font-size:12px;line-height:1.55;margin-top:5px}
+.cta{position:relative;overflow:hidden;padding:45px;border-radius:28px;border:1px solid rgba(64,163,255,.27);background:radial-gradient(500px 220px at 85% 20%,rgba(0,188,255,.18),transparent 70%),linear-gradient(135deg,#08275a,#06152c 65%);display:flex;align-items:center;justify-content:space-between;gap:30px}.cta h2{max-width:720px}.cta p{max-width:650px;margin-bottom:0}.cta .btn{white-space:nowrap}
+footer{padding:28px 0 40px;color:#5f7694;font-size:11px}.foot{display:flex;justify-content:space-between;gap:20px;border-top:1px solid rgba(75,145,215,.11);padding-top:20px}
+.modal{position:fixed;inset:0;z-index:100;display:none;align-items:center;justify-content:center;padding:18px;background:rgba(0,5,14,.76);backdrop-filter:blur(12px)}.modal.open{display:flex}.modal-box{width:min(560px,100%);position:relative;padding:31px;border:1px solid rgba(75,162,244,.28);border-radius:24px;background:linear-gradient(145deg,#091d3a,#040d1d);box-shadow:0 30px 100px rgba(0,0,0,.5)}.close{position:absolute;right:16px;top:12px;background:none;border:0;color:#91a8c4;font-size:30px;cursor:pointer}.form{display:grid;gap:12px}.form label{font-size:11px;color:#91a7c1}.form input,.form textarea{width:100%;margin-top:6px;padding:12px 13px;border-radius:11px;border:1px solid rgba(71,151,224,.2);background:#06152b;color:#fff;outline:0}.form textarea{min-height:100px;resize:vertical}.form input:focus,.form textarea:focus{border-color:#0d8dff}
+.reveal{opacity:0;transform:translateY(22px);transition:opacity .7s ease,transform .7s ease}.reveal.show{opacity:1;transform:none}
+@media(max-width:1020px){.navlinks{display:none}.mobile-menu{display:block}.nav>.btn{display:none}.hero{padding-top:120px}.hero-grid{grid-template-columns:1fr}.hero-screen{min-height:480px}.cards{grid-template-columns:1fr 1fr}.fleet{grid-template-columns:1fr 1fr}.demo-body{grid-template-columns:230px 1fr}.metrics{grid-template-columns:1fr 1fr}}
+@media(max-width:680px){.wrap{width:min(var(--max),calc(100% - 28px))}.nav{height:70px}.logo img{width:40px;height:40px}.logo{font-size:16px}.hero{padding:104px 0 65px}.hero-grid{gap:8px}h1{font-size:49px;letter-spacing:-2.5px}.lead{font-size:17px}.actions{display:grid;grid-template-columns:1fr}.actions>*{width:100%}.hero-screen{min-height:345px}.screen{transform:none}.screen-body{height:280px;grid-template-columns:112px 1fr}.mini-side{padding:8px}.mini-row{padding:8px 4px}.mini-row b{font-size:7px}.mini-row span{font-size:6px}.mini-search{font-size:7px}.hero-float{display:none}.screen-top{height:39px}.section-head p{font-size:16px}section{padding:72px 0}.cards{grid-template-columns:1fr}.card{min-height:auto}.demo{border-radius:20px}.demo-body{grid-template-columns:1fr}.object-panel{display:none}.realmap{min-height:440px}.object-card{left:9px;right:9px;bottom:9px;padding:11px}.stats{gap:8px}.stats span{font-size:10px}.stats i{font-size:7px}.zone{left:36%;width:130px;height:90px}.m{width:31px;height:31px;font-size:14px}.metrics{grid-template-columns:1fr 1fr}.metric{padding:17px}.metric strong{font-size:25px}.fleet{grid-template-columns:1fr 1fr}.benefits{grid-template-columns:1fr}.cta{padding:30px 22px;display:block}.cta .btn{width:100%;margin-top:18px}.foot{display:block}.foot span{display:block;margin-bottom:7px}.demo-note{display:block}.demo-note span{display:block;margin-top:5px}}
+@media(max-width:390px){.fleet,.metrics{grid-template-columns:1fr}.hero-screen{min-height:300px}}
+
+/* MOBILE V5 */
+html{scroll-padding-top:78px}
+button,a{ -webkit-tap-highlight-color:transparent }
+@media(max-width:680px){
+  body:before{display:none}
+  header{backdrop-filter:none;background:rgba(2,7,17,.96)}
+  .wrap{width:calc(100% - 24px)}
+  .nav{height:64px}
+  .logo img{width:38px;height:38px;border-radius:10px}.logo{font-size:15px}
+  .mobile-menu{font-size:26px;padding:8px 4px}
+  .navlinks{font-size:15px;gap:0;box-shadow:0 18px 35px rgba(0,0,0,.28)}
+  .navlinks a{padding:13px 4px;border-bottom:1px solid rgba(80,160,255,.08)}
+  .hero{padding:94px 0 42px;min-height:auto}
+  .hero-grid{gap:28px}
+  h1{font-size:clamp(38px,12vw,49px);line-height:.98;letter-spacing:-2px;margin:16px 0}
+  h2{font-size:clamp(31px,9vw,40px);letter-spacing:-1.4px}
+  .lead{font-size:16px;line-height:1.55}
+  .actions{gap:9px;margin-top:22px}.actions .btn,.actions .ghost{min-height:50px}
+  .trust{gap:8px;margin-top:20px}.trust span{font-size:10px}
+  .hero-screen{min-height:250px;margin-top:2px}
+  .orb{width:300px;height:300px;filter:none}
+  .screen{width:100%;border-radius:18px;transform:none;box-shadow:0 18px 45px rgba(0,72,180,.2)}
+  .screen-body{height:210px;grid-template-columns:1fr}
+  .mini-side{display:none}
+  .mini-map{background-size:28px 28px}
+  .mini-card{left:8px;right:8px;bottom:8px;padding:8px}.mini-card b{font-size:8px}.mini-card strong{font-size:9px}
+  .screen-top{height:37px;padding:0 10px}.screen-title{font-size:9px}.screen-live{font-size:8px}
+  section{padding:58px 0}.section-head{margin-bottom:25px}.section-head p{font-size:15px;line-height:1.6}
+  .cards{gap:10px}.card{padding:22px;border-radius:20px}.card .ico{width:44px;height:44px;margin-bottom:16px}.card h3{font-size:20px}
+  .demo{border-radius:18px}.demo-bar{height:auto;min-height:58px;padding:8px 10px;gap:8px;align-items:center}.demo-brand span{display:none}.demo-tabs{overflow-x:auto;max-width:58%;padding-bottom:1px;scrollbar-width:none}.demo-tabs::-webkit-scrollbar{display:none}.demo-tab{white-space:nowrap;padding:9px 10px;font-size:10px}
+  .demo-body{display:flex;flex-direction:column;min-height:0}
+  .object-panel{display:flex;flex-wrap:nowrap;gap:6px;overflow-x:auto;padding:8px;background:#061329;border-right:0;border-bottom:1px solid rgba(78,155,225,.12);scrollbar-width:none}
+  .object-panel::-webkit-scrollbar{display:none}
+  .object-panel .search,.object-panel .group{display:none}
+  .obj{flex:0 0 142px;min-width:142px;padding:9px 8px;background:rgba(9,28,55,.75);border:1px solid rgba(73,151,223,.11)}
+  .obj.selected{border-color:rgba(0,224,255,.25)}
+  .obj b{font-size:10px}.obj small{font-size:8px}.obj em{font-size:9px}
+  .realmap{min-height:430px;height:430px;background-size:46px 46px;transform:none!important}
+  .map-tools{right:9px;top:9px}.map-tools button{width:40px;height:40px;font-size:17px}
+  .zone{left:30%;top:25%;width:125px;height:82px}
+  .m{width:34px;height:34px;font-size:14px}
+  .map-label{font-size:8px;padding:5px 6px}
+  .object-card{left:8px;right:8px;bottom:8px;padding:10px;display:block;border-radius:12px}
+  .object-card small{font-size:8px}.stats{margin-top:9px;display:grid;grid-template-columns:repeat(3,1fr);gap:6px}.stats span{font-size:11px}.stats i{font-size:7px}
+  .demo-note{padding:11px 12px;font-size:9px}.demo-note span{line-height:1.4}
+  .metrics{gap:9px}.metric{padding:15px;border-radius:16px}.metric strong{font-size:22px}
+  .fleet{grid-template-columns:1fr;gap:9px}.fleet-card{padding:19px}
+  .benefits{gap:9px}.benefit{padding:16px}.benefit b{font-size:13px}.benefit span{font-size:11px}
+  .cta{padding:25px 18px;border-radius:20px}.cta h2{font-size:30px}.cta p{font-size:14px}.cta .btn{min-height:50px}
+  .modal{padding:10px}.modal-box{padding:24px 18px;border-radius:20px;max-height:calc(100dvh - 20px);overflow:auto}.form input,.form textarea{font-size:16px}
+}
+@media(max-width:390px){.wrap{width:calc(100% - 20px)}.hero-screen{min-height:225px}.realmap{height:400px;min-height:400px}.obj{flex-basis:134px;min-width:134px}.stats span{font-size:10px}.stats i{font-size:6px}}
+
+/* v6 monitoring workspace */
+.monitor-shell{display:grid;grid-template-columns:54px 270px 1fr;min-height:650px;background:#071321}
+.monitor-rail{background:#06101d;border-right:1px solid rgba(96,160,220,.13);display:flex;flex-direction:column;align-items:center;padding:13px 7px;gap:7px}
+.rail-dot{width:30px;height:30px;border-radius:9px;display:grid;place-items:center;color:#6f87a3;font-size:14px;border:1px solid transparent;cursor:pointer}.rail-dot.active{color:#6ce1ff;background:rgba(0,172,255,.12);border-color:rgba(0,206,255,.18);box-shadow:inset 0 0 20px rgba(0,170,255,.08)}.rail-spacer{flex:1}
+.monitor-list{background:#081525;border-right:1px solid rgba(96,160,220,.13);display:flex;flex-direction:column;min-width:0}.list-head{padding:15px 14px 10px;border-bottom:1px solid rgba(96,160,220,.1)}.list-title{display:flex;align-items:center;justify-content:space-between;margin-bottom:13px}.list-title b{font-size:13px}.list-title span{font-size:9px;color:#5e7897}.list-search{height:34px;border-radius:8px;border:1px solid rgba(90,150,210,.15);background:#0a1d33;color:#7690ad;display:flex;align-items:center;padding:0 10px;font-size:10px}.filters{display:flex;gap:6px;margin-top:8px}.filter{border:1px solid rgba(90,150,210,.13);background:transparent;color:#6c86a3;border-radius:7px;padding:6px 8px;font-size:8px}.filter.active{color:#bdefff;border-color:rgba(0,204,255,.2);background:rgba(0,184,255,.08)}.objects-scroll{padding:5px 7px;overflow:auto}.object-group{color:#617c9a;font-size:8px;font-weight:800;letter-spacing:.5px;padding:10px 7px 6px;text-transform:uppercase}.obj2{display:grid;grid-template-columns:8px 1fr auto;gap:8px;align-items:center;padding:10px 8px;border-radius:8px;cursor:pointer}.obj2:hover,.obj2.active{background:rgba(0,137,255,.11)}.obj2.active{box-shadow:inset 2px 0 #12c9ff}.obj2 .status{width:7px;height:7px;border-radius:50%;background:#536b84}.obj2 .status.go{background:#20e19a;box-shadow:0 0 9px rgba(32,225,154,.65)}.obj2 b{font-size:10px;display:block;color:#dbe9f7}.obj2 small{display:block;font-size:8px;color:#5f7895;margin-top:3px}.obj2 .speed{font-size:9px;color:#88a3bf}.map-work{position:relative;min-width:0;overflow:hidden;background:#153c50}.map-work:before{content:"";position:absolute;inset:0;background:linear-gradient(rgba(174,212,222,.07) 1px,transparent 1px),linear-gradient(90deg,rgba(174,212,222,.07) 1px,transparent 1px);background-size:62px 62px}.map-work:after{content:"";position:absolute;inset:0;background:radial-gradient(circle at 54% 45%,rgba(19,205,239,.11),transparent 30%),linear-gradient(125deg,rgba(8,36,51,.15),rgba(3,18,29,.58))}.map-road{position:absolute;height:12px;border-top:4px solid rgba(222,235,239,.16);border-radius:50%;z-index:1}.map-road.r1{width:120%;left:-8%;top:30%;transform:rotate(18deg)}.map-road.r2{width:115%;left:-6%;top:56%;transform:rotate(-13deg)}.map-road.r3{width:92%;left:18%;top:75%;transform:rotate(8deg)}.map-road.r4{width:65%;left:25%;top:18%;transform:rotate(63deg)}.map-route{position:absolute;width:61%;height:4px;left:18%;top:55%;background:linear-gradient(90deg,#00d9ff,#1485ff);box-shadow:0 0 16px rgba(0,210,255,.8);transform:rotate(-18deg);z-index:3}.geozone{position:absolute;left:49%;top:26%;width:190px;height:120px;border:1px dashed rgba(57,229,184,.65);background:rgba(32,225,154,.07);transform:rotate(-9deg);z-index:2}.geozone span{position:absolute;top:-18px;left:0;color:#74dcb9;font-size:8px;background:rgba(5,29,37,.8);padding:4px 6px;border-radius:5px}.map-marker{position:absolute;z-index:6;width:32px;height:32px;border-radius:50%;display:grid;place-items:center;background:#071b2d;border:2px solid #00d9ff;box-shadow:0 0 0 6px rgba(0,217,255,.08),0 0 22px rgba(0,207,255,.55);font-size:15px;cursor:pointer;transition:.2s}.map-marker:hover{transform:scale(1.12)}.map-marker.m1{left:38%;top:52%}.map-marker.m2{left:64%;top:38%;border-color:#5d9cff}.map-marker.m3{left:54%;top:69%;border-color:#2fe0a7}.map-marker.m4{left:25%;top:32%;border-color:#ffcb63}.marker-label{position:absolute;z-index:7;font-size:8px;color:#dcefff;background:rgba(4,18,31,.82);padding:5px 7px;border-radius:5px;border:1px solid rgba(100,180,230,.15)}.marker-label.l1{left:38%;top:46%}.marker-label.l2{left:64%;top:32%}.map-topbar{position:absolute;z-index:12;top:12px;left:12px;right:12px;display:flex;justify-content:space-between;gap:10px;pointer-events:none}.map-chip{pointer-events:auto;background:rgba(5,21,34,.88);border:1px solid rgba(100,175,220,.18);border-radius:8px;padding:8px 10px;color:#7894ae;font-size:9px;backdrop-filter:blur(8px)}.map-chip b{color:#d9f5ff}.map-controls{position:absolute;z-index:12;right:12px;top:62px;display:flex;flex-direction:column;gap:5px}.map-controls button{width:31px;height:31px;border:1px solid rgba(90,170,220,.2);background:rgba(5,22,36,.9);color:#c4e5f6;border-radius:7px;cursor:pointer}.map-bottom{position:absolute;z-index:13;left:12px;right:12px;bottom:12px;background:rgba(5,20,34,.94);border:1px solid rgba(81,169,221,.2);border-radius:11px;padding:12px 13px;display:grid;grid-template-columns:1.4fr repeat(4,auto);gap:18px;align-items:center;backdrop-filter:blur(12px)}.map-bottom .main b{font-size:12px}.map-bottom .main small{display:block;color:#64809d;font-size:8px;margin-top:4px}.map-bottom .v{font-size:11px;color:#dff6ff}.map-bottom .v small{display:block;color:#5f7995;font-size:7px;margin-top:2px}.map-bottom .go{color:#2fe0a7}.workspace-footer{display:flex;justify-content:space-between;align-items:center;padding:10px 13px;background:#071321;border-top:1px solid rgba(90,160,220,.1);color:#5e7896;font-size:8px}.workspace-footer strong{color:#8aa6c2}.mobile-map-switch{display:none}
+@media(max-width:900px){.monitor-shell{grid-template-columns:1fr;min-height:680px}.monitor-rail{display:none}.monitor-list{display:none}.mobile-map-switch{display:flex;position:absolute;z-index:20;left:10px;right:10px;top:10px;gap:6px}.mobile-map-switch button{flex:1;border:1px solid rgba(85,170,220,.2);background:rgba(5,20,34,.9);color:#7894ae;border-radius:8px;padding:9px;font-size:9px}.mobile-map-switch button.active{color:#d9f8ff;background:rgba(0,157,255,.14)}.map-work{min-height:680px}.map-bottom{grid-template-columns:1fr 1fr;gap:8px;left:9px;right:9px;bottom:9px;padding:11px}.map-bottom .main{grid-column:1/-1}.map-controls{top:60px}.map-topbar{top:49px}.map-chip{font-size:8px}.geozone{width:140px;height:90px}.marker-label{display:none}}
+@media(max-width:480px){.map-work{min-height:650px}.map-bottom{grid-template-columns:1fr 1fr}.map-bottom .v:nth-child(4){display:none}.map-bottom .v{font-size:10px}.map-marker{width:29px;height:29px}.map-route{width:70%;left:12%}}
+
+
+/* ===== v7 refinements ===== */
+.partner-section{padding-top:40px}
+.partners{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+.partner-card{position:relative;display:flex;align-items:center;gap:18px;min-height:150px;padding:22px;border:1px solid rgba(70,160,255,.18);border-radius:22px;background:linear-gradient(145deg,rgba(10,37,75,.78),rgba(3,14,31,.9));cursor:pointer;transition:.22s;overflow:hidden}
+.partner-card:after{content:"";position:absolute;inset:auto -20% -55% 25%;height:120px;background:radial-gradient(circle,rgba(0,174,255,.12),transparent 65%);pointer-events:none}
+.partner-card:hover{transform:translateY(-4px);border-color:rgba(66,184,255,.45);box-shadow:0 20px 55px rgba(0,90,190,.18)}
+.partner-logo{width:78px;height:78px;flex:0 0 78px;border-radius:17px;background:#fff;display:grid;place-items:center;padding:10px;overflow:hidden}
+.partner-logo img{max-width:100%;max-height:100%;object-fit:contain}.partner-logo.ax{background:#0f1523}.partner-logo.ax img{width:100%;height:100%}
+.partner-card h3{margin:0 0 6px;font-size:20px}.partner-card p{font-size:12px;line-height:1.55;margin:0}.partner-link{margin-top:10px;display:inline-block;color:#64d8ff;font-size:11px;font-weight:800}
+.partner-modal{position:fixed;inset:0;z-index:100;background:rgba(0,5,14,.72);backdrop-filter:blur(10px);display:none;align-items:center;justify-content:center;padding:20px}.partner-modal.open{display:flex}.partner-box{position:relative;width:min(650px,100%);border:1px solid rgba(77,169,245,.24);border-radius:26px;background:linear-gradient(145deg,#071a33,#03101f);box-shadow:0 40px 120px rgba(0,0,0,.55);padding:30px}.partner-close{position:absolute;right:16px;top:12px;border:0;background:transparent;color:#9db4cc;font-size:30px;cursor:pointer}.partner-head{display:flex;gap:18px;align-items:center;margin-bottom:18px}.partner-head .partner-logo{width:92px;height:92px;flex-basis:92px}.partner-box h2{margin:0 0 6px;font-size:32px}.partner-box .source{display:inline-flex;margin-top:18px;color:#65d9ff;font-size:12px;font-weight:800}
+.contact-grid{display:grid;grid-template-columns:1.1fr .9fr;gap:20px;align-items:stretch}.contact-card{border:1px solid rgba(70,160,255,.18);border-radius:22px;background:rgba(5,20,39,.72);padding:24px}.contact-lines{display:grid;gap:12px;margin-top:18px}.contact-line{display:flex;align-items:center;gap:12px;padding:13px 15px;border:1px solid rgba(70,160,255,.13);border-radius:14px;background:rgba(7,29,53,.55)}.contact-line .symbol{width:34px;height:34px;border-radius:10px;display:grid;place-items:center;background:rgba(0,166,255,.1);color:#62d8ff}.contact-line b{display:block;font-size:13px}.contact-line span{display:block;color:#7993ae;font-size:11px;margin-top:3px}.socials{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:14px}.social{display:flex;align-items:center;justify-content:center;gap:8px;min-height:48px;border:1px solid rgba(70,160,255,.16);border-radius:13px;background:#081a31;color:#dff5ff;font-size:12px;font-weight:850;transition:.2s}.social:hover{transform:translateY(-2px);border-color:rgba(69,185,255,.45)}
+/* informational cards: no fake interaction */
+.card,.fleet-card{cursor:default}.card:hover,.fleet-card:hover{transform:none;box-shadow:none;border-color:var(--line)}
+.mobile-drawer{display:none}.drawer-grab{width:44px;height:5px;border-radius:999px;background:#71839a;margin:0 auto 12px}.drawer-tabs{display:flex;gap:5px;margin-bottom:12px}.drawer-tabs button{flex:1;border:1px solid rgba(80,165,225,.15);background:#081b31;color:#7691ae;border-radius:9px;padding:8px 5px;font-size:9px}.drawer-tabs button.active{background:rgba(0,164,255,.13);color:#dff7ff;border-color:rgba(0,210,255,.24)}.drawer-content{font-size:11px}.drawer-content .drow{display:flex;justify-content:space-between;padding:9px 0;border-bottom:1px solid rgba(80,150,210,.1)}.drawer-content .drow:last-child{border-bottom:0}.drawer-content small{color:#6d87a3}.mobile-object-strip{display:none}
+.map-marker.selected{transform:scale(1.25);border-color:#fff;box-shadow:0 0 0 8px rgba(0,224,255,.12),0 0 35px rgba(0,210,255,.8)}
+.map-route.track-hidden,.geozone.hidden{opacity:.08}.map-route{transition:.25s}.geozone{transition:.25s}.marker-label{transition:.2s}
+@media(max-width:900px){.partners{grid-template-columns:1fr 1fr}.contact-grid{grid-template-columns:1fr}.mobile-drawer{display:block;position:absolute;z-index:30;left:0;right:0;bottom:0;background:rgba(7,17,30,.98);border-top:1px solid rgba(85,170,220,.22);border-radius:22px 22px 0 0;padding:10px 14px 16px;box-shadow:0 -20px 60px rgba(0,0,0,.35);transform:translateY(calc(100% - 54px));transition:.3s}.mobile-drawer.open{transform:translateY(0)}.mobile-object-strip{display:flex;position:absolute;z-index:21;left:10px;right:10px;top:49px;gap:6px;overflow:auto;padding-bottom:2px}.mobile-object-strip button{flex:0 0 auto;border:1px solid rgba(85,170,220,.18);background:rgba(5,20,34,.9);color:#a0b7cc;border-radius:9px;padding:8px 10px;font-size:9px}.mobile-object-strip button.active{color:#e2faff;background:rgba(0,157,255,.14);border-color:rgba(0,210,255,.25)}.map-topbar{top:89px}.map-controls{top:126px}.map-bottom{display:none}.map-work{min-height:700px}.mobile-map-switch{top:10px}.mobile-drawer .drawer-summary{display:flex;align-items:center;justify-content:space-between;gap:12px}.mobile-drawer .drawer-summary b{font-size:14px}.mobile-drawer .drawer-summary span{color:#2fe0a7;font-size:10px;font-weight:800}.mobile-drawer .drawer-summary small{display:block;color:#68839e;margin-top:3px;font-size:9px}.partner-card:hover{transform:none}.socials{grid-template-columns:1fr 1fr 1fr}}
+@media(max-width:560px){.partners{grid-template-columns:1fr}.partner-card{min-height:128px}.partner-logo{width:64px;height:64px;flex-basis:64px}.partner-card h3{font-size:18px}.contact-card{padding:20px}.socials{grid-template-columns:1fr}.map-work{min-height:690px}.map-marker{z-index:25}.map-topbar .map-chip:last-child{display:none}.mobile-object-strip{top:48px}.map-controls{right:10px}.partner-box{padding:24px 18px}.partner-head{align-items:flex-start}.partner-head .partner-logo{width:72px;height:72px;flex-basis:72px}.partner-box h2{font-size:26px}}
+
+
+/* v8 live interactive map */
+.live-map-work{background:#111a20!important;min-height:680px;position:relative}50%{transform:scale(1.12);opacity:.08}}.map-topbar.live-topbar{z-index:12}.map-side-tools{position:absolute;z-index:20;right:16px;top:74px;display:flex;flex-direction:column;gap:6px}.map-side-tools button{width:38px;height:38px;border-radius:10px;border:1px solid rgba(78,159,216,.24);background:rgba(4,16,28,.91);color:#d9f5ff;cursor:pointer;font-size:18px;box-shadow:0 8px 22px rgba(0,0,0,.22)}.map-side-tools button:hover{border-color:rgba(0,220,255,.55);background:#08263b}.map-legend{position:absolute;z-index:12;left:14px;bottom:18px;display:flex;gap:10px;padding:8px 10px;border:1px solid rgba(78,159,216,.18);background:rgba(3,14,25,.82);border-radius:9px;color:#89a3bb;font-size:8px}.map-legend span{display:flex;align-items:center;gap:4px}.lg-dot{width:6px;height:6px;border-radius:50%;display:inline-block}.lg-dot.moving{background:#22e1a0;box-shadow:0 0 7px #22e1a0}.lg-dot.stopped{background:#8799aa}.lg-line{width:16px;height:3px;border-radius:99px;background:#08d9ff;display:inline-block}.desktop-object-card{position:absolute;z-index:13;left:16px;right:16px;bottom:16px;display:grid;grid-template-columns:1fr auto auto;gap:18px;align-items:center;padding:13px 15px;border:1px solid rgba(72,160,226,.25);background:rgba(4,17,29,.94);backdrop-filter:blur(16px);border-radius:14px;box-shadow:0 20px 50px rgba(0,0,0,.3)}.doc-main{display:flex;align-items:center;gap:18px;min-width:0}.doc-title{display:flex;align-items:center;gap:10px;min-width:0}.doc-title>span{width:38px;height:38px;border-radius:10px;background:#0a2b3d;display:grid;place-items:center;font-size:19px}.doc-title b{display:block;font-size:13px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.doc-title small{display:block;color:#69839d;font-size:9px;margin-top:3px}.doc-status{font-size:9px;color:#2fe0a7;white-space:nowrap}.doc-stats{display:flex;gap:18px}.doc-stats div{min-width:60px;text-align:right}.doc-stats strong{display:block;font-size:15px}.doc-stats small{color:#66819a;font-size:8px} .doc-stats small.fuel-pct{display:block;color:#6f8ca6;font-size:8px;margin-top:2px}.doc-expand{border:1px solid rgba(76,160,220,.2);background:#0a253a;color:#a9cbe1;border-radius:8px;padding:9px 10px;font-size:9px;cursor:pointer}.desktop-only{display:inline}.mobile-drawer{z-index:30}.accordion-row{cursor:pointer}.accordion-row b{color:#a7b9c8}
+
+@media(min-width:901px){.route-status{display:none!important}.map-legend{bottom:92px}.workspace-footer{gap:18px}.workspace-footer span:last-child{max-width:620px;text-align:right;line-height:1.45}.monitor-shell{grid-template-columns:285px minmax(0,1fr);min-height:680px}.live-map-work{min-height:680px}.map-side-tools{top:72px}.map-topbar.live-topbar{top:12px}.mobile-object-strip{display:none}}
+@media(max-width:900px){.live-map-work{min-height:720px}.desktop-object-card{display:none}.map-side-tools{top:122px;right:10px}.map-legend{bottom:205px;left:10px}.map-topbar.live-topbar{top:90px}.mobile-drawer{display:block}.mobile-object-strip{z-index:21}.drawer-content{max-height:360px;overflow:auto}.mobile-drawer.open .drawer-grab{background:#9eb1bf}.desktop-only{display:none}}
+@media(max-width:560px){.live-map-work{min-height:760px}.map-side-tools{top:118px}.map-side-tools button{width:36px;height:36px}.map-legend{bottom:212px;font-size:7px}.map-topbar.live-topbar{top:88px;left:10px}.mobile-drawer{padding-left:14px;padding-right:14px}.drawer-tabs{overflow-x:auto;white-space:nowrap}.drawer-tabs button{flex:0 0 auto}.drow{min-height:44px}}
+
+/* v10 refinements */
+.demo-live{font-size:10px;color:#2fe0a7;font-weight:800;letter-spacing:.3px}.drawer-hero{display:flex;justify-content:space-between;gap:15px;padding:11px 0 13px;margin-bottom:2px;border-bottom:1px solid rgba(80,150,210,.1)}.drawer-kicker{display:block;color:#66829e;font-size:8px;letter-spacing:.8px;margin-bottom:4px}.drawer-hero strong{font-size:15px}.drawer-hero-metrics{display:flex;gap:15px}.drawer-hero-metrics span{display:flex;flex-direction:column;align-items:flex-end}.drawer-hero-metrics b{font-size:16px}.drawer-hero-metrics small{font-size:8px;color:#68839e}.drawer-section-title{font-size:9px;color:#7892ad;font-weight:800;text-transform:uppercase;letter-spacing:.6px;margin:15px 0 8px}.stat-grid{display:grid;grid-template-columns:1fr 1fr;gap:7px;margin-bottom:8px}.stat-grid>div{padding:10px;border:1px solid rgba(80,150,210,.12);border-radius:10px;background:#081a2c}.stat-grid span,.stat-grid small{display:block;color:#66829e;font-size:8px}.stat-grid b{display:block;font-size:14px;margin:4px 0}.mini-chart{height:90px;display:flex;align-items:flex-end;gap:5px;padding:10px;border:1px solid rgba(80,150,210,.12);border-radius:10px;background:linear-gradient(180deg,rgba(0,190,255,.06),rgba(0,0,0,0))}.mini-chart i{flex:1;border-radius:4px 4px 1px 1px;background:linear-gradient(180deg,#21d9ff,#1268ff);opacity:.85}.timeline{border-left:1px solid rgba(0,210,255,.3);margin:7px 0 12px;padding-left:15px}.timeline>div{position:relative;padding:0 0 14px}.timeline>div:before{content:"";position:absolute;left:-20px;top:3px;width:7px;height:7px;border-radius:50%;background:#18d9ff;box-shadow:0 0 10px #18d9ff}.timeline b,.timeline span{display:block}.timeline b{font-size:9px}.timeline span{color:#6e89a4;font-size:8px;margin-top:3px}.hours-card{display:grid;grid-template-columns:1fr 1fr;gap:7px}.hours-card>div{padding:13px;border:1px solid rgba(80,150,210,.12);border-radius:10px;background:#081a2c}.hours-card span{display:block;color:#66829e;font-size:8px}.hours-card b{display:block;font-size:16px;margin-top:5px}.mode-bar{height:8px;border-radius:99px;background:#102a40;overflow:hidden;margin-bottom:8px}.mode-bar i{display:block;height:100%;border-radius:99px;background:linear-gradient(90deg,#17cfff,#22e1a0)}.messenger-lead{color:#8fa8bf;line-height:1.65;margin:10px 0 14px}.messenger-benefits{display:grid;gap:7px;margin-bottom:16px}.messenger-benefits span{padding:8px 10px;border:1px solid rgba(80,150,210,.12);border-radius:9px;background:#081a2c;color:#b5cadc;font-size:9px}.messenger-card .socials{gap:7px}.messenger-card .social{display:flex;flex-direction:column;gap:3px;align-items:flex-start;padding:11px 10px}.messenger-card .social small{color:#6e8aa4;font-size:8px}.messenger-card .social b{font-size:10px;color:#e1f4ff}.messenger-card .social.whatsapp{border-color:rgba(31,210,138,.25)}.messenger-card .social.telegram{border-color:rgba(54,170,255,.2)}.messenger-card .social.max{border-color:rgba(255,255,255,.12)}
+
+/* v19 — MapLibre + OpenFreeMap + internal monitoring detail panel */
+.map-canvas{position:absolute;inset:0;z-index:1;background:#0b1620}.map-canvas canvas{outline:none} .fleet-marker{width:38px;height:38px;border-radius:50%;display:grid;place-items:center;background:#08203a;border:2px solid #00e0ff;box-shadow:0 0 0 6px rgba(0,224,255,.10),0 0 24px rgba(0,185,255,.42);font-size:17px;cursor:pointer;transition:.2s;user-select:none}.fleet-marker.active{box-shadow:0 0 0 7px rgba(0,224,255,.14),0 0 32px rgba(0,185,255,.68)}.map-provider-badge{position:absolute;z-index:14;left:14px;top:50px;padding:6px 9px;border:1px solid rgba(78,159,216,.22);border-radius:8px;background:rgba(3,14,25,.82);color:#91abc1;font-size:8px;backdrop-filter:blur(8px)}
+.map-key-notice{position:absolute;inset:0;z-index:18;display:flex;align-items:center;justify-content:center;padding:30px;background:linear-gradient(180deg,rgba(4,13,22,.25),rgba(4,13,22,.7));pointer-events:none}.map-key-notice>div{max-width:430px;padding:20px 22px;border:1px solid rgba(77,165,225,.28);border-radius:16px;background:rgba(5,19,34,.94);box-shadow:0 25px 70px rgba(0,0,0,.35);text-align:center}.map-key-notice b{display:block;font-size:14px;margin-bottom:7px}.map-key-notice span{display:block;color:#7893ad;font-size:10px;line-height:1.6}.map-key-notice code{display:inline-block;margin-top:10px;padding:5px 7px;border-radius:6px;background:#071a2d;color:#7edcff;font-size:9px}.monitor-detail-panel{position:absolute;z-index:35;right:14px;top:14px;bottom:14px;width:min(390px,calc(100% - 28px));display:none;flex-direction:column;overflow:hidden;background:rgba(5,16,29,.985);border:1px solid rgba(79,166,225,.28);border-radius:18px;box-shadow:0 25px 80px rgba(0,0,0,.5)}.monitor-detail-panel.open{display:flex}.monitor-detail-panel .drawer-grab{display:none}.monitor-detail-panel .drawer-summary{flex:0 0 auto}.monitor-detail-panel .drawer-content{overflow:auto;padding-bottom:16px}.monitor-detail-panel .drawer-close{cursor:pointer}.detail-backdrop{display:none}.route-line-glow{pointer-events:none}
+@media(max-width:900px){.monitor-detail-panel{left:0;right:0;top:auto;bottom:0;width:auto;height:min(76%,560px);border-radius:22px 22px 0 0}.monitor-detail-panel.open{display:flex}.monitor-detail-panel .drawer-grab{display:block}.map-provider-badge{top:130px;left:10px}.map-key-notice{padding:20px}.map-key-notice>div{max-width:330px}}
+
+/* v20 — polished responsive internal detail panel */
+.monitor-detail-panel{
+  position:absolute;z-index:40;right:12px;top:12px;bottom:12px;
+  width:min(360px,calc(100% - 24px));height:auto;
+  display:none;flex-direction:column;overflow:hidden;
+  background:rgba(5,15,28,.97);
+  border:1px solid rgba(73,171,232,.34);
+  border-radius:18px;
+  box-shadow:0 24px 70px rgba(0,0,0,.55),0 0 0 1px rgba(0,225,255,.04);
+  backdrop-filter:blur(16px);
+}
+.monitor-detail-panel.open{display:flex}
+.monitor-detail-panel .drawer-grab{display:none}
+.monitor-detail-panel .drawer-summary{
+  flex:0 0 auto;display:grid;grid-template-columns:minmax(0,1fr) auto;
+  align-items:start;gap:10px;padding:15px 42px 13px 16px;
+  border-bottom:1px solid rgba(75,155,215,.12);position:relative;
+}
+.monitor-detail-panel .drawer-summary>div{min-width:0}
+.monitor-detail-panel .drawer-summary b{display:block;font-size:14px;line-height:1.25;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.monitor-detail-panel .drawer-summary small{display:block;color:#6e89a5;font-size:9px;line-height:1.45;margin-top:4px;white-space:normal}
+.monitor-detail-panel .drawer-summary>span{font-size:9px;font-weight:850;color:#2fe0a7;padding-top:2px;white-space:nowrap}
+.monitor-detail-panel .drawer-close{
+  position:absolute;right:10px;top:10px;width:27px;height:27px;
+  border:1px solid rgba(91,165,218,.18);border-radius:8px;
+  background:#081a2d;color:#a9bfd1;font-size:17px;line-height:1;cursor:pointer;
+}
+.monitor-detail-panel .drawer-close:hover{background:#0c2742;color:#fff}
+.monitor-detail-panel .drawer-tabs{
+  flex:0 0 auto;display:grid;grid-template-columns:repeat(4,1fr);gap:5px;
+  padding:10px 12px 9px;margin:0;border-bottom:1px solid rgba(75,155,215,.10);
+  background:rgba(5,18,32,.72);
+}
+.monitor-detail-panel .drawer-tabs button{
+  min-width:0;border:1px solid rgba(80,165,225,.14);background:#081b31;color:#7691ae;
+  border-radius:8px;padding:8px 4px;font-size:8px;font-weight:750;cursor:pointer;
+  white-space:nowrap;overflow:hidden;text-overflow:ellipsis;
+}
+.monitor-detail-panel .drawer-tabs button:hover{color:#cfefff;border-color:rgba(0,210,255,.24)}
+.monitor-detail-panel .drawer-tabs button.active{color:#e1faff;background:rgba(0,157,255,.16);border-color:rgba(0,213,255,.34);box-shadow:inset 0 -1px 0 #00dfff}
+.monitor-detail-panel .drawer-content{flex:1 1 auto;min-height:0;overflow-y:auto;overflow-x:hidden;padding:0 16px 18px;font-size:10px;scrollbar-width:thin;scrollbar-color:#214763 transparent}
+.monitor-detail-panel .drawer-content::-webkit-scrollbar{width:5px}
+.monitor-detail-panel .drawer-content::-webkit-scrollbar-thumb{background:#214763;border-radius:99px}
+.monitor-detail-panel .drawer-hero{padding:14px 0 13px;margin:0;align-items:flex-start}
+.monitor-detail-panel .drawer-hero strong{font-size:16px}
+.monitor-detail-panel .drawer-hero-metrics{gap:18px}
+.monitor-detail-panel .drawer-hero-metrics b{font-size:16px}
+.monitor-detail-panel .drawer-section-title{margin:16px 0 8px}
+.monitor-detail-panel .drow{min-height:40px;gap:15px;align-items:center}
+.monitor-detail-panel .drow>span{color:#718ba4;flex:1;min-width:0}
+.monitor-detail-panel .drow>b{color:#d9ebf8;text-align:right;max-width:62%;overflow-wrap:anywhere}
+.monitor-detail-panel .accordion-row{display:block!important;padding:10px 0}
+.monitor-detail-panel .accordion-row .acc-title{min-height:22px}
+.monitor-detail-panel .stat-grid>div,.monitor-detail-panel .hours-card>div{min-width:0}
+.monitor-detail-panel .timeline span{line-height:1.45}
+.monitor-detail-panel .drawer-content:empty:before{content:'Нет данных';display:block;color:#6f89a4;padding:24px 0}
+.doc-expand{min-width:104px;height:38px;padding:0 13px;border-radius:9px;font-size:10px;font-weight:850;white-space:nowrap;cursor:pointer}
+@media(max-width:900px){
+  .monitor-detail-panel{
+    left:8px;right:8px;top:auto;bottom:8px;width:auto;
+    height:min(78vh,600px);max-height:calc(100% - 16px);
+    border-radius:20px;box-shadow:0 -18px 60px rgba(0,0,0,.55);
+  }
+  .monitor-detail-panel .drawer-grab{display:block;width:42px;height:4px;border-radius:99px;background:#5f7890;margin:7px auto 4px}
+  .monitor-detail-panel .drawer-summary{padding:10px 42px 11px 15px}
+  .monitor-detail-panel .drawer-tabs{padding:9px 10px}
+  .monitor-detail-panel .drawer-content{padding:0 14px 16px}
+  .monitor-detail-panel .drawer-hero{gap:10px}
+  .monitor-detail-panel .drawer-hero-metrics{gap:12px}
+  .monitor-detail-panel .drawer-hero-metrics b{font-size:14px}
+  .monitor-detail-panel .drow{min-height:39px}
+}
+@media(max-width:430px){
+  .monitor-detail-panel{height:min(82vh,590px)}
+  .monitor-detail-panel .drawer-summary b{font-size:13px}
+  .monitor-detail-panel .drawer-summary small{font-size:8px}
+  .monitor-detail-panel .drawer-tabs{gap:4px;padding-left:8px;padding-right:8px}
+  .monitor-detail-panel .drawer-tabs button{font-size:7px;padding:8px 2px}
+  .monitor-detail-panel .drawer-content{padding-left:12px;padding-right:12px}
+  .monitor-detail-panel .drawer-hero{display:block}
+  .monitor-detail-panel .drawer-hero-metrics{justify-content:flex-start;margin-top:11px}
+  .monitor-detail-panel .drawer-hero-metrics span{align-items:flex-start}
+}
+
+/* v23 — monitor layout and road-following tracks */
+.demo .monitor-shell{height:680px;min-height:680px;}
+.demo .map-work{height:100%;min-height:0;}
+.demo .map-canvas{height:100%;min-height:0;}
+@media(max-width:900px){
+  .demo .monitor-shell{height:720px;min-height:720px;display:block;}
+  .demo .map-work{height:100%;min-height:0;}
+}
+@media(max-width:560px){
+  .demo .monitor-shell{height:760px;min-height:760px;}
+}
+/* The 04/Data cards use one consistent vertical rhythm. */
+.data-dashboard{align-items:stretch;}
+.data-card{display:flex;flex-direction:column;min-height:300px;}
+.data-card .data-card-top{flex:0 0 auto;}
+.data-card .data-big{min-height:50px;display:flex;align-items:flex-end;}
+.data-card h3{min-height:20px;}
+.data-card p{min-height:52px;margin-bottom:14px;}
+.data-card .data-pills,.data-card .data-line,.data-card .fuel-meter{margin-top:auto;}
+.data-card>small{margin-top:10px;min-height:14px;}
+@media(max-width:900px){.data-card{min-height:270px;}}
+@media(max-width:560px){.data-card{min-height:250px;}}
+/* Selected track is a real road-following line; keep it visually dominant. */
+.route-status{position:absolute;z-index:14;left:14px;bottom:52px;padding:6px 9px;border:1px solid rgba(78,159,216,.18);border-radius:8px;background:rgba(3,14,25,.82);color:#91abc1;font-size:8px;backdrop-filter:blur(8px);pointer-events:none;}
+@media(max-width:900px){.route-status{bottom:195px;left:10px;}}
+
+/* v25 — MapLibre marker positioning + mobile monitoring */
+/* MapLibre itself controls the transform on .fleet-marker. Never override it. */
+.fleet-marker{width:38px;height:38px;border-radius:50%;display:grid;place-items:center;background:#08203a;border:2px solid #00e0ff;box-shadow:0 0 0 6px rgba(0,224,255,.10),0 0 24px rgba(0,185,255,.42);cursor:pointer;user-select:none;will-change:transform;}
+.fleet-marker-icon{width:100%;height:100%;display:grid;place-items:center;border-radius:50%;font-size:17px;line-height:1;transition:box-shadow .2s,border-color .2s,background .2s;}
+.fleet-marker.active{border-color:#ffffff;box-shadow:0 0 0 7px rgba(0,224,255,.14),0 0 32px rgba(0,185,255,.68),inset 0 0 0 1px rgba(255,255,255,.25);}
+.fleet-marker.active .fleet-marker-icon{transform:scale(1.08);}
+.fleet-marker:hover .fleet-marker-icon{transform:scale(1.06);}
+.map-canvas{touch-action:none;}
+.partner-box{padding:32px 32px 30px;}
+.partner-head{padding-right:52px;}
+.partner-close{z-index:5;width:38px;height:38px;display:grid;place-items:center;right:14px;top:14px;border:1px solid rgba(95,170,220,.24);border-radius:10px;background:rgba(6,23,40,.96);font-size:25px;line-height:1;color:#c7d8e6;box-shadow:0 8px 20px rgba(0,0,0,.25);}
+.partner-close:hover{background:#0b2944;color:#fff;}
+@media(max-width:900px){
+  .demo .monitor-shell{height:calc(100svh - 96px);min-height:650px;max-height:860px;display:block;}
+  .demo .map-work{height:100%;min-height:0;border-radius:0 0 18px 18px;}
+  .demo .map-canvas{height:100%;min-height:0;}
+  .mobile-object-strip{top:48px;left:10px;right:56px;padding:2px 0 6px;gap:5px;overflow-x:auto;z-index:22;}
+  .mobile-object-strip button{flex:0 0 auto;padding:7px 10px;font-size:8px;white-space:nowrap;border-radius:8px;background:rgba(3,15,28,.88);}
+  .map-topbar.live-topbar{top:9px;left:10px;right:auto;}
+  .map-topbar.live-topbar .map-chip{font-size:8px;padding:7px 9px;}
+  .map-provider-badge{top:89px;left:10px;font-size:7px;}
+  .map-side-tools{top:89px;right:10px;}
+  .map-side-tools button{width:36px;height:36px;}
+  .desktop-object-card{display:grid;left:10px;right:10px;bottom:10px;grid-template-columns:minmax(0,1fr) auto auto;gap:8px;padding:9px 10px;border-radius:13px;}
+  .doc-main{gap:8px;min-width:0;}
+  .doc-title>span{width:30px;height:30px;font-size:15px;flex:0 0 30px;}
+  .doc-title b{font-size:10px;}
+  .doc-title small{font-size:7px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:150px;}
+  .doc-status{display:none;}
+  .doc-stats{gap:8px;}
+  .doc-stats div{min-width:38px;}
+  .doc-stats strong{font-size:11px;}
+  .doc-stats small{font-size:6px;}
+  .doc-expand{padding:8px 9px;font-size:8px;white-space:nowrap;}
+  .map-legend{left:10px;bottom:68px;max-width:calc(100% - 20px);padding:7px 8px;gap:8px;font-size:7px;}
+  .route-status{left:10px;bottom:40px;font-size:7px;}
+}
+@media(max-width:430px){
+  .demo .monitor-shell{height:calc(100svh - 88px);min-height:610px;max-height:780px;}
+  .mobile-object-strip{top:47px;right:52px;}
+  .mobile-object-strip button{padding:7px 9px;font-size:7px;}
+  .map-provider-badge{top:88px;}
+  .map-side-tools{top:88px;}
+  .desktop-object-card{grid-template-columns:minmax(0,1fr) auto;}
+  .doc-stats{display:none;}
+  .doc-title small{max-width:175px;}
+  .map-legend{bottom:66px;}
+  .route-status{bottom:38px;}
+}
+
+@media(min-width:901px){
+  .demo .monitor-shell{height:700px;min-height:700px;}
+  .demo .map-work,.demo .map-canvas{height:100%;min-height:0;}
+  .mobile-drawer{top:14px;bottom:14px;right:14px;width:min(400px,calc(100% - 28px));}
+}
+@media(max-width:900px){
+  .demo .monitor-shell{height:calc(100svh - 118px);min-height:620px;max-height:820px;display:block;}
+  .demo .map-work{height:100%;min-height:0;border-radius:0 0 18px 18px;}
+  .demo .map-canvas{height:100%;min-height:0;}
+  .mobile-object-strip{top:54px;left:10px;right:10px;padding:3px 1px 7px;scrollbar-width:none;}
+  .mobile-object-strip::-webkit-scrollbar{display:none;}
+  .mobile-object-strip button{padding:8px 11px;font-size:9px;box-shadow:0 6px 18px rgba(0,0,0,.18);}
+  .map-topbar.live-topbar{top:10px;left:10px;right:auto;}
+  .map-provider-badge{top:101px;left:10px;font-size:8px;}
+  .map-side-tools{top:101px;right:10px;}
+  .map-legend{left:10px;bottom:76px;max-width:calc(100% - 20px);flex-wrap:wrap;}
+  .route-status{left:10px;bottom:38px;}
+  .mobile-drawer{left:8px;right:8px;bottom:8px;max-height:78%;height:auto;border-radius:20px;}
+  .partner-box{padding:26px 18px 24px;}
+  .partner-head{padding-right:44px;gap:12px;}
+  .partner-box h2{font-size:25px;line-height:1.05;}
+  .partner-close{right:10px;top:10px;width:36px;height:36px;}
+}
+@media(max-width:560px){
+  .demo .monitor-shell{height:calc(100svh - 100px);min-height:620px;max-height:760px;}
+  .mobile-object-strip{top:52px;}
+  .map-provider-badge{top:100px;}
+  .map-side-tools{top:100px;}
+  .map-side-tools button{width:38px;height:38px;}
+  .map-legend{bottom:70px;}
+  .route-status{bottom:34px;}
+}
+
+
+/* v26 — stable selection + rebuilt mobile monitoring UI */
+/* Selection never pans/rezooms the map. MapLibre owns marker transforms; only the inner icon scales. */
+.track-network{color:#9bb2c6;padding-left:4px;border-left:1px solid rgba(120,170,205,.16);margin-left:2px;}
+@media(max-width:900px){.track-network{display:none;}}
+/* v27: MapLibre owns the outer marker transform; never override it. */
+.fleet-marker .fleet-marker-icon{transform:scale(1);}
+.fleet-marker.active .fleet-marker-icon{transform:scale(1.08);}
+.fleet-marker:hover .fleet-marker-icon{transform:scale(1.06);}
+
+@media(max-width:900px){
+  /* Give the map a clean, dedicated mobile composition. */
+  .demo .monitor-shell{
+    height:calc(100svh - 100px);
+    min-height:640px;
+    max-height:820px;
+    display:block;
+    border-radius:20px;
+    overflow:hidden;
+  }
+  .demo .map-work{
+    height:100%;
+    min-height:0;
+    border-radius:20px;
+    background:#071321;
+  }
+  .demo .map-canvas{height:100%;min-height:0;}
+
+  /* Object chooser is a dedicated top bar, not floating pills over the map. */
+  .mobile-object-strip{
+    position:absolute;
+    z-index:25;
+    top:0;left:0;right:0;
+    height:54px;
+    display:flex;
+    align-items:center;
+    gap:7px;
+    padding:7px 10px;
+    overflow-x:auto;
+    scrollbar-width:none;
+    background:linear-gradient(180deg,rgba(3,12,23,.97),rgba(3,12,23,.88));
+    border-bottom:1px solid rgba(91,171,222,.16);
+    box-shadow:0 10px 24px rgba(0,0,0,.18);
+  }
+  .mobile-object-strip::-webkit-scrollbar{display:none}
+  .mobile-object-strip button{
+    flex:0 0 auto;
+    height:36px;
+    padding:0 12px;
+    border:1px solid rgba(93,170,220,.16);
+    border-radius:10px;
+    background:#0a1d32;
+    color:#8ca5bb;
+    font-size:9px;
+    font-weight:800;
+    white-space:nowrap;
+    box-shadow:none;
+  }
+  .mobile-object-strip button.active{
+    color:#e5faff;
+    background:linear-gradient(180deg,rgba(0,173,255,.22),rgba(0,103,180,.16));
+    border-color:rgba(0,215,255,.46);
+    box-shadow:inset 0 0 0 1px rgba(0,224,255,.08),0 5px 18px rgba(0,150,220,.12);
+  }
+
+  /* Remove non-essential floating labels on small screens. */
+  .map-topbar.live-topbar,.map-provider-badge{display:none!important;}
+  .map-side-tools{top:66px;right:10px;z-index:26;gap:7px;}
+  .map-side-tools button{
+    width:40px;height:40px;border-radius:11px;
+    border:1px solid rgba(95,171,220,.22);
+    background:rgba(4,18,32,.92);
+    box-shadow:0 8px 24px rgba(0,0,0,.22);
+  }
+
+  /* Keep the selected object's card separate from the track legend. */
+  .desktop-object-card{
+    display:grid;
+    left:10px;right:10px;bottom:10px;
+    grid-template-columns:minmax(0,1fr) auto;
+    grid-template-rows:auto auto;
+    gap:7px 10px;
+    padding:11px 11px 10px;
+    border-radius:16px;
+    background:rgba(4,17,30,.96);
+    border:1px solid rgba(87,170,224,.25);
+    box-shadow:0 18px 50px rgba(0,0,0,.38);
+    backdrop-filter:blur(16px);
+  }
+  .desktop-object-card .doc-main{grid-column:1;grid-row:1;min-width:0;}
+  .desktop-object-card .doc-title{min-width:0;}
+  .desktop-object-card .doc-title>span{width:30px;height:30px;flex:0 0 30px;font-size:15px;}
+  .desktop-object-card .doc-title b{font-size:11px;line-height:1.2;}
+  .desktop-object-card .doc-title small{
+    display:block;max-width:none;margin-top:3px;
+    font-size:7px;line-height:1.35;
+    white-space:nowrap;overflow:hidden;text-overflow:ellipsis;
+  }
+  .desktop-object-card .doc-status{display:none;}
+  .desktop-object-card .doc-stats{
+    grid-column:1;grid-row:2;
+    display:grid;grid-template-columns:repeat(3,minmax(0,1fr));
+    gap:6px;padding-top:2px;
+  }
+  .desktop-object-card .doc-stats div{
+    min-width:0;padding:6px 7px;
+    border:1px solid rgba(79,155,210,.12);
+    border-radius:9px;background:#081a2c;
+  }
+  .desktop-object-card .doc-stats strong{font-size:11px;line-height:1;}
+  .desktop-object-card .doc-stats small{font-size:6px;color:#6d879f;margin-top:3px;display:block;}
+  .desktop-object-card .doc-expand{
+    grid-column:2;grid-row:1 / span 2;
+    align-self:stretch;min-width:86px;
+    border-radius:12px;
+    padding:0 12px;font-size:9px;
+    background:linear-gradient(180deg,rgba(0,157,255,.18),rgba(0,105,180,.14));
+    border:1px solid rgba(0,210,255,.28);
+    color:#d8f7ff;
+  }
+
+  /* Legend carries the track status, so no separate pill can cover the object card. */
+  .route-status{display:none!important;}
+  .map-legend{
+    left:10px;bottom:118px;right:10px;
+    width:max-content;max-width:calc(100% - 20px);
+    display:flex;align-items:center;gap:9px;
+    padding:8px 10px;
+    border-radius:11px;
+    background:rgba(4,18,31,.92);
+    border:1px solid rgba(84,163,216,.2);
+    box-shadow:0 10px 28px rgba(0,0,0,.22);
+    font-size:7px;
+  }
+  .map-legend:after{
+    content:'Трек · по дорожной сети';
+    display:inline-flex;align-items:center;
+    margin-left:2px;padding-left:9px;
+    border-left:1px solid rgba(92,160,205,.2);
+    color:#7f9bb3;font-size:7px;white-space:nowrap;
+  }
+
+  /* Keep the map itself visually clean. */
+  .map-canvas canvas{outline:none;}
+  .map-canvas .maplibregl-ctrl-top-right{top:0;right:0;}
+}
+@media(max-width:560px){
+  .demo .monitor-shell{height:calc(100svh - 88px);min-height:620px;max-height:780px;}
+  .mobile-object-strip{height:52px;padding:6px 8px;gap:6px;}
+  .mobile-object-strip button{height:34px;padding:0 10px;font-size:8px;}
+  .map-side-tools{top:62px;right:8px;}
+  .map-side-tools button{width:38px;height:38px;}
+  .map-legend{bottom:120px;left:8px;max-width:calc(100% - 62px);padding:7px 8px;gap:7px;}
+  .map-legend:after{font-size:6px;padding-left:7px;}
+  .desktop-object-card{left:8px;right:8px;bottom:8px;padding:10px;border-radius:15px;}
+  .desktop-object-card .doc-expand{min-width:82px;padding:0 9px;font-size:8px;}
+  .desktop-object-card .doc-title b{font-size:10px;}
+  .desktop-object-card .doc-title small{font-size:6px;}
+  .desktop-object-card .doc-stats strong{font-size:10px;}
+  .desktop-object-card .doc-stats small{font-size:5.5px;}
+}
+@media(max-width:390px){
+  .mobile-object-strip button{font-size:7px;padding:0 9px;}
+  .desktop-object-card .doc-expand{min-width:76px;font-size:7px;}
+  .map-legend{max-width:calc(100% - 50px);}
+}
+
+
+/* v28: map-native vehicle icons. MapLibre, not DOM/CSS transforms, owns geographic positioning. */
+.fleet-marker{transition:none!important;will-change:auto!important;}
+.fleet-marker:hover,.fleet-marker.active{transform:none!important;}
+.fleet-marker-icon{transform:none!important;}
+
+</style>
+<link rel="stylesheet" href="https://unpkg.com/maplibre-gl@5.15.0/dist/maplibre-gl.css">
+<script src="https://unpkg.com/maplibre-gl@5.15.0/dist/maplibre-gl.js"></script>
+</head>
+<body>
+<header><div class="wrap nav"><a class="logo" href="#top"><img src="assets/logo.jpg" alt="СКАНФЛИТ"><span>СКАНФЛИТ</span></a><nav class="navlinks"><a href="#solutions">Решения</a><a href="#monitoring">Мониторинг</a><a href="#analytics">Аналитика</a><a href="#partners">Партнёры</a><a href="#transport">Транспорт</a><a href="#contacts">Контакты</a></nav><a class="btn" href="#contacts">Получить консультацию</a><button class="mobile-menu" aria-label="Меню">☰</button></div></header>
+<main id="top">
+<section class="hero"><div class="wrap hero-grid"><div class="reveal"><div class="pill"><i class="live-dot"></i> Комплексный контроль автопарка</div><h1>Видите транспорт.<br><span>Контролируете расходы.</span></h1><p class="lead">Тахографы, ГЛОНАСС/GPS и контроль топлива в единой системе. СКАНФЛИТ помогает видеть, что происходит с транспортом, маршрутами и топливом.</p><div class="actions"><button class="btn open-form">Обсудить задачу →</button><a class="ghost" href="#monitoring">Посмотреть мониторинг ↓</a></div><div class="trust"><span>◈ <b>Тахографы</b></span><span>◈ <b>ГЛОНАСС / GPS</b></span><span>◈ <b>Контроль топлива</b></span></div></div>
+<div class="hero-screen reveal"><div class="orb"></div><div class="screen"><div class="screen-top"><div class="dots"><i></i><i></i><i></i></div><span class="screen-title">СКАНФЛИТ / МОНИТОРИНГ</span><span class="screen-live">● ONLINE</span></div><div class="screen-body"><div class="mini-side"><div class="mini-search">⌕ Поиск</div><div class="mini-row active"><i class="mini-status"></i><div><b>КАМАЗ 65115</b><span>62 км/ч</span></div></div><div class="mini-row"><i class="mini-status"></i><div><b>MAN TGX</b><span>74 км/ч</span></div></div><div class="mini-row"><i class="mini-status"></i><div><b>VOLVO FH</b><span>Стоянка</span></div></div><div class="mini-row"><i class="mini-status"></i><div><b>ЭКСКАВАТОР</b><span>Работа</span></div></div></div><div class="mini-map"><div class="road a"></div><div class="road b"></div><div class="road c"></div><div class="route"></div><div class="pin p1">🚛</div><div class="pin p2">🚛</div><div class="pin p3">🚜</div><div class="mini-card"><div><b>КАМАЗ 65115</b><small>движение · сейчас</small></div><strong>62 км/ч</strong></div></div></div></div><div class="hero-float hf1"><b>62 км/ч</b><small>скорость выбранного ТС</small></div><div class="hero-float hf2"><b>91 л</b><small>38% · топливо</small></div></div></div></section>
+
+<section id="solutions"><div class="wrap"><div class="section-head reveal"><div class="kicker">01 / Решения</div><h2>Одна система — несколько задач</h2><p>Собираем конфигурацию под ваш транспорт и эксплуатацию: от базовой навигации до комплексного контроля.</p></div><div class="cards"><article class="card reveal"><span class="num">01</span><div class="ico">⏱</div><h3>Тахографы</h3><p>Установка, настройка и обслуживание тахографического оборудования. Контроль параметров работы водителей и транспорта.</p></article><article class="card reveal"><span class="num">02</span><div class="ico">◉</div><h3>ГЛОНАСС / GPS</h3><p>Местоположение, маршруты, пробег, скорость, стоянки и геозоны — всё, что нужно для ежедневного контроля.</p></article><article class="card reveal"><span class="num">03</span><div class="ico">⛽</div><h3>Контроль топлива</h3><p>Заправки, расход, уровень топлива и события по автомобилю. Данные для анализа эксплуатации и затрат.</p></article></div></div></section>
+
+<section id="monitoring"><div class="wrap"><div class="section-head reveal"><div class="kicker">02 / Мониторинг</div><h2>Мониторинг без лишнего — всё перед глазами</h2><p>Список объектов слева, карта по центру, фильтры, геозоны и карточка выбранного транспорта — логика привычного мониторинга, адаптированная под задачи автопарка.</p></div><div class="demo reveal">
+  <div class="demo-bar"><div class="demo-brand"><i></i><b>Система мониторинга</b><span style="color:#67819e">· рабочая область</span></div><div class="demo-live">● ONLINE · 8 объектов</div></div>
+  <div class="monitor-shell">
+<aside class="monitor-list">
+      <div class="list-head"><div class="list-title"><b>Объекты</b><span>8 объектов</span></div><div class="list-search">⌕ &nbsp; Поиск по названию</div><div class="filters"><button class="filter active">Все</button><button class="filter">Движение</button><button class="filter">Стоянка</button></div></div>
+      <div class="objects-scroll">
+        <div class="object-group">Грузовой транспорт · 3</div>
+        <div class="obj2 active" data-object="КАМАЗ 65115" data-speed="62" data-fuel="91" data-fuel-pct="38"><i class="status go"></i><div><b>КАМАЗ 65115</b><small>Движение · 62 км/ч · стоянка 18 мин</small></div><span class="speed">62</span></div>
+        <div class="obj2" data-object="MAN TGX" data-speed="74" data-fuel="671" data-fuel-pct="61"><i class="status go"></i><div><b>MAN TGX</b><small>Движение · 74 км/ч · стоянка 27 мин</small></div><span class="speed">74</span></div>
+        <div class="obj2" data-object="VOLVO FH" data-speed="0" data-fuel="720" data-fuel-pct="72"><i class="status"></i><div><b>VOLVO FH</b><small>Стоянка · 43 мин · сигнал 11:37</small></div><span class="speed">—</span></div>
+        <div class="object-group">Спецтехника · 2</div>
+        <div class="obj2" data-object="Hyundai R210LC-7" data-speed="6" data-fuel="210" data-fuel-pct="48"><i class="status go"></i><div><b>Hyundai R210LC-7</b><small>Работа · 6 км/ч · стоянка 1 ч 12 мин</small></div><span class="speed">6</span></div>
+        <div class="obj2" data-object="LiuGong 856H" data-speed="0" data-fuel="180" data-fuel-pct="55"><i class="status"></i><div><b>LiuGong 856H</b><small>Стоянка · 2 ч 08 мин · сигнал 10:54</small></div><span class="speed">—</span></div>
+        <div class="object-group">Легковые автомобили · 3</div>
+        <div class="obj2" data-object="Haval Jolion" data-speed="48" data-fuel="31" data-fuel-pct="56"><i class="status go"></i><div><b>Haval Jolion</b><small>Движение · 48 км/ч · стоянка 21 мин</small></div><span class="speed">48</span></div>
+        <div class="obj2" data-object="LADA Granta" data-speed="0" data-fuel="34" data-fuel-pct="68"><i class="status"></i><div><b>LADA Granta</b><small>Стоянка · 36 мин · сигнал 11:44</small></div><span class="speed">—</span></div>
+        <div class="obj2" data-object="Toyota Camry" data-speed="66" data-fuel="43" data-fuel-pct="72"><i class="status go"></i><div><b>Toyota Camry</b><small>Движение · 66 км/ч · стоянка 14 мин</small></div><span class="speed">66</span></div>
+      </div>
+    </aside>
+    <div class="map-work live-map-work">
+      
+      <div class="mobile-object-strip">
+        <button class="active" data-mobile-object="КАМАЗ 65115">КАМАЗ · 62</button>
+        <button data-mobile-object="MAN TGX">MAN · 74</button>
+        <button data-mobile-object="VOLVO FH">VOLVO · стоянка</button>
+        <button data-mobile-object="Hyundai R210LC-7">HYUNDAI · 6</button>
+        <button data-mobile-object="LiuGong 856H">LIUGONG · стоянка</button>
+        <button data-mobile-object="Haval Jolion">HAVAL · 48</button>
+        <button data-mobile-object="LADA Granta">LADA · стоянка</button>
+        <button data-mobile-object="Toyota Camry">TOYOTA · 66</button>
+      </div>
+      <div id="fleetMap" class="map-canvas" aria-label="Демонстрационная карта мониторинга"></div><div class="map-provider-badge">КАРТА · OPENFREEMAP</div>
+      <div class="map-topbar live-topbar"><div class="map-chip"><b>Карта</b><span class="desktop-only"> · 8 объектов · обновление 5 сек</span></div><div class="map-chip desktop-only">Онлайн · <b>8 / 8</b></div></div>
+      <div class="map-side-tools"><button id="mapLocate" title="Показать все объекты">◎</button><button id="mapZoomIn" title="Увеличить">+</button><button id="mapZoomOut" title="Уменьшить">−</button></div>
+      <div class="map-legend"><span><i class="lg-dot moving"></i> Движение</span><span><i class="lg-dot stopped"></i> Стоянка</span><span><i class="lg-line"></i> Трек</span><span class="track-network">по дорожной сети</span></div><div class="route-status" id="routeStatus">Трек · дорожная сеть</div>
+      <div class="desktop-object-card" id="desktopObjectCard">
+        <div class="doc-main"><div class="doc-title"><span id="docIcon">🚛</span><div><b id="selectedName">КАМАЗ 65115</b><small id="selectedAddress">Демонстрационный объект · данные синтетические</small></div></div><span class="doc-status" id="selectedState">● Движение</span></div>
+        <div class="doc-stats"><div><strong id="selectedSpeed">62</strong><small>км/ч</small></div><div><strong id="selectedFuel">91 л</strong><small id="selectedFuelPct">38% · топливо</small></div><div><strong id="selectedSat">14</strong><small>спутников</small></div></div>
+        <button class="doc-expand" id="openDrawerDesktop" type="button">Подробнее ↓</button>
+      </div>
+      
+      <div class="monitor-detail-panel" id="mobileDrawer">
+        <div class="drawer-grab"></div>
+        <div class="drawer-summary"><div><b id="drawerName">КАМАЗ 65115</b><small id="drawerSub">Движение · 62 км/ч · топливо 91 л · 38%</small></div><span id="drawerStatus">● ONLINE</span><button class="drawer-close" id="drawerClose" aria-label="Закрыть">×</button></div>
+        <div class="drawer-tabs"><button class="active" data-drawer-tab="info">Информация</button><button data-drawer-tab="stats">Статистика</button><button data-drawer-tab="history">История</button><button data-drawer-tab="hours">Моточасы</button></div>
+        <div class="drawer-content" id="drawerContent"></div>
+      </div>
+    </div>
+    </div>
+  </div>
+  <div class="workspace-footer"><span><strong>Мониторинг</strong> · 8 объектов · карта · геозоны</span><span>Демонстрация: данные и показатели синтетические, не являются обещанием конкретных технических характеристик.</span></div>
+</div>
+</div></div></section>
+
+
+<section id="partners" class="partner-section"><div class="wrap"><div class="section-head reveal"><div class="kicker">03 / Партнёры</div><h2>Технологии, с которыми работаем</h2><p>Используем оборудование и программные решения ведущих производителей телематики. Нажмите на карточку — покажем краткую информацию о компании.</p></div><div class="partners">
+<article class="partner-card reveal" data-partner="navtelecom"><div class="partner-logo"><img src="https://www.skyhawk.ru/img/team/navtelecom.jpg" alt="NAVTELECOM"></div><div><h3>NAVTELECOM</h3><p>Телематическое оборудование для GPS/ГЛОНАСС-мониторинга, транспорта и интеграции с датчиками.</p><span class="partner-link">Подробнее →</span></div></article>
+<article class="partner-card reveal" data-partner="escort"><div class="partner-logo"><img src="https://www.fmeter.ru/img/og_image/logo-en-imgog.png" alt="ESCORT"></div><div><h3>ЭСКОРТ</h3><p>Оборудование для транспортного мониторинга и контроля топлива, включая датчики уровня топлива.</p><span class="partner-link">Подробнее →</span></div></article>
+<article class="partner-card reveal" data-partner="axenta"><div class="partner-logo ax"><img src="https://axenta.tech/wp-content/themes/axenta/page/img/Group%203116174.svg" alt="AXENTA"></div><div><h3>AXENTA</h3><p>Платформа GPS/ГЛОНАСС-мониторинга транспорта, маршрутов, событий, геозон и аналитики.</p><span class="partner-link">Подробнее →</span></div></article>
+</div></div></section>
+
+<section id="analytics"><div class="wrap"><div class="section-head reveal"><div class="kicker">04 / Данные</div><h2>Данные, которыми удобно управлять</h2></div><div class="data-dashboard"><article class="data-card data-main reveal"><div class="data-card-top"><span class="data-icon">◉</span><span class="data-tag">ОНЛАЙН</span></div><div class="data-big">24/7</div><h3>Контроль автопарка</h3><p>Транспорт, маршруты, стоянки и события собраны в одном интерфейсе.</p><div class="data-pills"><span>Движение</span><span>Стоянки</span><span>Геозоны</span></div></article><article class="data-card reveal"><div class="data-card-top"><span class="data-icon">⌁</span><span class="data-tag">НАВИГАЦИЯ</span></div><div class="data-big">GPS</div><h3>Положение и маршрут</h3><p>Текущая позиция, история поездок, пробег и отклонения.</p><div class="data-line"><i style="width:100%"></i></div><small>Карта · трек · история</small></article><article class="data-card reveal"><div class="data-card-top"><span class="data-icon">⛽</span><span class="data-tag">ТОПЛИВО</span></div><div class="data-big">91 <span>л<small>38% · уровень</small></span></div><h3>Контроль топлива</h3><p>Фактический объём топлива и его уровень в баке.</p><div class="fuel-meter"><div class="fuel-tank" aria-label="Уровень топлива 91 литр из 240 литров"><div class="fuel-fill"></div><span class="fuel-mark m100">100%</span><span class="fuel-mark m50">50%</span><span class="fuel-mark m0">0%</span></div><div class="fuel-meter-info"><strong>91 <span>л</span></strong><b>из 240 л</b><small>38% заполнения</small></div></div><small>Датчики · заправки · сливы</small></article><article class="data-card reveal"><div class="data-card-top"><span class="data-icon">↗</span><span class="data-tag">АНАЛИТИКА</span></div><div class="data-big">3<span>+<small>сценария</small></span></div><h3>События и контроль</h3><p>Настраиваем контроль под задачи: маршрут, геозона, топливо и эксплуатация.</p><div class="data-pills"><span>События</span><span>Отчёты</span><span>Уведомления</span></div></article></div></div></section>
+
+<section id="transport"><div class="wrap"><div class="section-head reveal"><div class="kicker">05 / Транспорт</div><h2>Подходит для разных типов транспорта</h2><p>Подбираем оборудование и контроль под особенности эксплуатации. Эти карточки — просто информация, без лишних кнопок и переходов.</p></div><div class="fleet"><article class="fleet-card reveal"><div class="fleet-ico">🚛</div><b>Грузовики</b><p>Логистика, перевозки, контроль маршрутов и топлива.</p></article><article class="fleet-card reveal"><div class="fleet-ico">🚌</div><b>Автобусы</b><p>Пассажирский транспорт и контроль движения.</p></article><article class="fleet-card reveal"><div class="fleet-ico">🚜</div><b>Спецтехника</b><p>Строительная, коммунальная и производственная техника.</p></article><article class="fleet-card reveal"><div class="fleet-ico">🚐</div><b>Коммерческий транспорт</b><p>Фургоны, сервисные и корпоративные автомобили.</p></article></div></div></section>
+
+<section><div class="wrap"><div class="section-head reveal"><div class="kicker">06 / Возможности</div><h2>Что получает руководитель</h2></div><div class="benefits"><div class="benefit reveal"><div class="check">✓</div><div><b>Местоположение в реальном времени</b><span>Понимание, где находится транспорт и в каком он статусе.</span></div></div><div class="benefit reveal"><div class="check">✓</div><div><b>История маршрутов</b><span>Поездки, пробег, стоянки и отклонения от маршрута.</span></div></div><div class="benefit reveal"><div class="check">✓</div><div><b>Контроль топлива</b><span>Заправки, уровень и события по каждому автомобилю.</span></div></div><div class="benefit reveal"><div class="check">✓</div><div><b>Геозоны и события</b><span>Контроль въезда, выезда и заданных территорий.</span></div></div><div class="benefit reveal"><div class="check">✓</div><div><b>Единая картина автопарка</b><span>Объекты собраны в одном интерфейсе для ежедневной работы.</span></div></div><div class="benefit reveal"><div class="check">✓</div><div><b>Решение под задачу</b><span>Можно начать с нужного функционала и расширять систему.</span></div></div></div></div></section>
+
+<section id="contacts"><div class="wrap"><div class="cta reveal"><div><div class="kicker">СКАНФЛИТ</div><h2>Покажем, как это будет работать именно на вашем автопарке</h2><p>Расскажите, сколько машин и что нужно контролировать. Обсудим оборудование, мониторинг и состав решения.</p></div><button class="btn open-form">Получить консультацию →</button></div></div></section>
+</main>
+<footer><div class="wrap"><div class="contact-grid"><div class="contact-card"><div class="kicker">Контакты</div><h3 style="font-size:28px;margin:8px 0 0">Свяжитесь с СКАНФЛИТ</h3><p class="contact-lead">Обратитесь к нам, если хотите понять, какое оборудование и мониторинг подойдут вашему автопарку. Расскажем варианты, ответим на вопросы и поможем собрать решение без лишнего оборудования.</p><div class="contact-reasons"><span>Подберём оборудование под транспорт</span><span>Покажем, как работает мониторинг</span><span>Разберём контроль топлива и маршрутов</span><span>Рассчитаем состав решения под ваш автопарк</span></div><div class="contact-lines"><a class="contact-line" href="tel:+79612180003"><span class="symbol">☎</span><div><b>8 961 218-00-03</b><span>Позвонить</span></div></a><a class="contact-line" href="mailto:scanfleet@mail.ru"><span class="symbol">✉</span><div><b>scanfleet@mail.ru</b><span>Написать на почту</span></div></a></div></div><div class="contact-card messenger-card"><div class="kicker">MAX</div><h3 style="font-size:28px;margin:8px 0 0">Свяжитесь с нами в MAX</h3><p class="messenger-lead">MAX удобно использовать для быстрого общения по автопарку: можно отправить список машин, фото тахографа или оборудования и сразу обсудить задачу.</p><div class="messenger-benefits"><span>⚡ Быстро обсудим задачу и состав автопарка</span><span>📋 Можно отправить список транспорта</span><span>📷 Можно прислать фото тахографа или оборудования</span><span>▶ Можно договориться о демонстрации системы</span></div><div class="socials"><a class="social max" href="#contacts" title="Ссылка на MAX будет добавлена после получения профиля"><b>MAX</b><small>Открыть контакт · ссылка на профиль добавим</small></a></div></div></div><div class="foot" style="margin-top:30px"><span>© СКАНФЛИТ</span><span>Тахографы · ГЛОНАСС/GPS · Контроль топлива</span></div></div></footer>
+
+
+<div class="partner-modal" id="partnerModal"><div class="partner-box"><button class="partner-close" aria-label="Закрыть">×</button><div class="partner-head"><div class="partner-logo" id="partnerModalLogo"></div><div><div class="kicker">Технологический партнёр</div><h2 id="partnerModalTitle">AXENTA</h2><span id="partnerModalType" style="color:#7590ac;font-size:11px">Мониторинг транспорта</span></div></div><p id="partnerModalText"></p><a id="partnerModalLink" class="source" href="#" target="_blank" rel="noopener">Официальный сайт →</a></div></div>
+
+<div class="modal" id="modal"><div class="modal-box"><button class="close" aria-label="Закрыть">×</button><div class="kicker">Заявка</div><h2>Обсудить задачу</h2><p>Оставьте контакты и кратко опишите автопарк. Форма подготовлена для подключения к MAX, e-mail или CRM.</p><form class="form"><label>Ваше имя<input required placeholder="Как к вам обращаться"></label><label>Телефон<input required type="tel" placeholder="+7 ___ ___-__-__"></label><label>Задача<textarea placeholder="Например: 20 грузовых автомобилей, нужен контроль топлива и маршрутов"></textarea></label><button class="btn" type="submit">Отправить заявку →</button></form></div></div>
+<script>
+const modal=document.getElementById('modal');
+const menu=document.querySelector('.mobile-menu');
+const nav=document.querySelector('.navlinks');
+const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting)e.target.classList.add('show')}),{threshold:.12});
+document.querySelectorAll('.reveal').forEach(e=>io.observe(e));
+
+/* Base UI */
+document.querySelectorAll('.open-form').forEach(b=>b.addEventListener('click',()=>modal?.classList.add('open')));
+document.querySelector('.close')?.addEventListener('click',()=>modal?.classList.remove('open'));
+modal?.addEventListener('click',e=>{if(e.target===modal)modal.classList.remove('open')});
+document.addEventListener('keydown',e=>{if(e.key==='Escape'){modal?.classList.remove('open');document.getElementById('partnerModal')?.classList.remove('open')}});
+if(menu&&nav){menu.addEventListener('click',()=>{const open=nav.dataset.open==='1';nav.dataset.open=open?'0':'1';nav.style.display=open?'none':'flex';if(!open){nav.style.position='absolute';nav.style.top='70px';nav.style.left='0';nav.style.right='0';nav.style.padding='18px';nav.style.flexDirection='column';nav.style.background='rgba(2,7,17,.98)';nav.style.borderBottom='1px solid rgba(80,160,255,.12)'}});document.querySelectorAll('.navlinks a').forEach(a=>a.addEventListener('click',()=>{nav.dataset.open='0';if(innerWidth<=1020)nav.style.display='none'}));}
+document.querySelector('.form')?.addEventListener('submit',e=>{e.preventDefault();alert('Спасибо! Форма подготовлена. Перед публикацией подключим отправку заявки.');modal?.classList.remove('open')});
+
+/* Partner cards */
+const partnerData={
+ navtelecom:{title:'NAVTELECOM',type:'Телематическое оборудование',text:'NAVTELECOM разрабатывает и производит телематическое оборудование для мониторинга транспорта и управления автопарком. Линейки устройств поддерживают GPS/ГЛОНАСС, CAN, BLE, RS-485 и интеграцию датчиков.',logo:'https://www.skyhawk.ru/img/team/navtelecom.jpg',url:'https://navtelecom.ru/'},
+ escort:{title:'ЭСКОРТ',type:'Контроль топлива и транспортный мониторинг',text:'ГК «Эскорт» производит оборудование для транспортного мониторинга и контроля расхода топлива. Компания выпускает датчики уровня топлива и другие решения для телематических систем и мониторинга транспорта.',logo:'https://www.fmeter.ru/img/og_image/logo-en-imgog.png',url:'https://www.fmeter.ru/'},
+ axenta:{title:'AXENTA',type:'Платформа мониторинга транспорта',text:'AXENTA — российская ИТ-компания и платформа GPS/ГЛОНАСС-мониторинга. Система поддерживает мониторинг объектов в реальном времени, треки, геозоны, события, отчёты, контроль топлива и работу с водителями.',logo:'https://axenta.tech/wp-content/themes/axenta/page/img/Group%203116174.svg',url:'https://axenta.tech/'}
+};
+const pmodal=document.getElementById('partnerModal');
+function openPartner(key){const d=partnerData[key];if(!d||!pmodal)return;document.getElementById('partnerModalTitle').textContent=d.title;document.getElementById('partnerModalType').textContent=d.type;document.getElementById('partnerModalText').textContent=d.text;document.getElementById('partnerModalLink').href=d.url;document.getElementById('partnerModalLogo').innerHTML='<img src="'+d.logo+'" alt="'+d.title+'" style="max-width:100%;max-height:100%;object-fit:contain">';pmodal.classList.add('open')}
+document.querySelectorAll('.partner-card').forEach(c=>c.addEventListener('click',()=>openPartner(c.dataset.partner)));
+document.querySelector('.partner-close')?.addEventListener('click',()=>pmodal?.classList.remove('open'));
+pmodal?.addEventListener('click',e=>{if(e.target===pmodal)pmodal.classList.remove('open')});
+
+/* Monitoring data — synthetic demo, distributed across Novosibirsk Oblast */
+const fleet={
+ 'КАМАЗ 65115':{lat:54.758,lng:83.107,speed:62,fuelLiters:91,fuelPct:38,status:'Движение',icon:'🚛',kind:'moving',city:'Бердск',parking:'18 мин',lastPing:'11:48:22',track:'18.6 км',history:'Сегодня · 7 поездок · 186 км',hours:'6 ч 42 мин',route:[[83.090,54.770],[83.105,54.765],[83.120,54.755],[83.135,54.748],[83.150,54.752],[83.164,54.745]]},
+ 'MAN TGX':{lat:55.020,lng:82.730,speed:74,fuelLiters:671,fuelPct:61,status:'Движение',icon:'🚛',kind:'moving',city:'Обь',parking:'27 мин',lastPing:'11:48:09',track:'24.2 км',history:'Сегодня · 5 поездок · 242 км',hours:'8 ч 15 мин',route:[[82.730,55.020],[82.714,55.034],[82.695,55.048],[82.676,55.040],[82.654,55.025],[82.632,55.033]]},
+ 'VOLVO FH':{lat:54.640,lng:83.300,speed:0,fuelLiters:720,fuelPct:72,status:'Стоянка',icon:'🚛',kind:'stopped',city:'Искитим',parking:'43 мин',lastPing:'11:37:14',track:'9.6 км',history:'Сегодня · 3 поездки · 96 км',hours:'4 ч 38 мин',route:[[83.300,54.640],[83.315,54.648],[83.328,54.638],[83.343,54.646],[83.360,54.640]]},
+ 'Hyundai R210LC-7':{lat:54.645,lng:83.300,speed:6,fuelLiters:210,fuelPct:48,status:'Работа',icon:'🚜',kind:'work',city:'Искитим',parking:'1 ч 12 мин',lastPing:'11:46:51',track:'4.1 км',history:'Сегодня · 2 выезда · 41 км',hours:'5 ч 11 мин',route:[[83.300,54.645],[83.315,54.652],[83.329,54.642],[83.345,54.650],[83.361,54.641]]},
+ 'LiuGong 856H':{lat:54.940,lng:83.200,speed:0,fuelLiters:180,fuelPct:55,status:'Стоянка',icon:'🚜',kind:'stopped',city:'Кольцово',parking:'2 ч 08 мин',lastPing:'10:54:36',track:'1.8 км',history:'Сегодня · 1 выезд · 18 км',hours:'2 ч 06 мин',route:[[83.200,54.940],[83.213,54.947],[83.228,54.943],[83.239,54.951],[83.252,54.946]]},
+ 'Haval Jolion':{lat:55.030,lng:82.920,speed:48,fuelLiters:31,fuelPct:56,status:'Движение',icon:'🚙',kind:'suv',city:'Новосибирск',parking:'21 мин',lastPing:'11:47:38',track:'6.4 км',history:'Сегодня · 4 поездки · 64 км',hours:'2 ч 18 мин',route:[[82.900,55.020],[82.910,55.030],[82.920,55.028],[82.935,55.038],[82.950,55.035]]},
+ 'LADA Granta':{lat:55.055,lng:82.940,speed:0,fuelLiters:34,fuelPct:68,status:'Стоянка',icon:'🚗',kind:'sedan',city:'Новосибирск',parking:'36 мин',lastPing:'11:44:02',track:'3.1 км',history:'Сегодня · 2 поездки · 31 км',hours:'1 ч 42 мин',route:[[82.925,55.050],[82.940,55.058],[82.952,55.052],[82.965,55.060],[82.978,55.056]]},
+ 'Toyota Camry':{lat:54.985,lng:82.890,speed:66,fuelLiters:43,fuelPct:72,status:'Движение',icon:'🚘',kind:'camry',city:'Новосибирск',parking:'14 мин',lastPing:'11:49:03',track:'11.8 км',history:'Сегодня · 5 поездок · 118 км',hours:'3 ч 26 мин',route:[[82.875,54.985],[82.890,54.978],[82.900,54.988],[82.915,54.982],[82.930,54.992]]}
+};
+let selected='КАМАЗ 65115';
+
+const el=id=>document.getElementById(id);
+const detail=el('mobileDrawer');
+const openDetail=()=>{detail?.classList.add('open');renderDetail('info')};
+const closeDetail=()=>detail?.classList.remove('open');
+el('openDrawerDesktop')?.addEventListener('click',openDetail);
+el('drawerClose')?.addEventListener('click',closeDetail);
+
+function setSelectedUI(name){
+ const d=fleet[name];
+ selected=name;
+ document.querySelectorAll('.obj2').forEach(x=>x.classList.toggle('active',x.dataset.object===name));
+ document.querySelectorAll('[data-mobile-object]').forEach(x=>x.classList.toggle('active',x.dataset.mobileObject===name));
+ el('selectedName').textContent=name;
+ el('selectedSpeed').textContent=d.speed;
+ el('selectedFuel').textContent=d.fuelLiters+' л';
+ el('selectedFuelPct').textContent=d.fuelPct+'% · топливо';
+ el('selectedState').textContent='● '+d.status;
+ el('selectedState').style.color=d.status==='Стоянка'?'#91a4b8':'#2fe0a7';
+ el('selectedAddress').textContent=d.city+' · стоянка: '+d.parking+' · последний сигнал: '+d.lastPing+' · трек: '+d.track;
+ el('docIcon').textContent=d.icon;
+ el('drawerName').textContent=name;
+ el('drawerSub').textContent=d.status+' · '+d.speed+' км/ч · топливо '+d.fuelLiters+' л · '+d.fuelPct+'%';
+ el('drawerStatus').textContent=d.status==='Стоянка'?'● СТОЯНКА':'● ONLINE';
+ el('drawerStatus').style.color=d.status==='Стоянка'?'#91a4b8':'#2fe0a7';
+ updateMapSelection();
+ renderDetail('info');
+}
+
+function renderDetail(type){
+ const d=fleet[selected];
+ const mileage=(d.history.match(/· ([0-9]+) км/)||[])[1]||'—';
+ const avg=d.speed?Math.max(24,d.speed-9):0;
+ let html='';
+ if(type==='info') html=`<div class="drawer-hero"><div><span class="drawer-kicker">ТЕКУЩЕЕ СОСТОЯНИЕ</span><strong>${d.status}</strong><small style="display:block;color:#68839e;margin-top:4px">${d.city}</small></div><div class="drawer-hero-metrics"><span><b>${d.speed}</b><small>км/ч</small></span><span><b>${d.fuelLiters} л</b><small>${d.fuelPct}% · уровень</small></span></div></div><div class="drow"><span>Время стоянки</span><b>${d.parking}</b></div><div class="drow"><span>Последний сигнал</span><b>${d.lastPing}</b></div><div class="drow"><span>Трек</span><b>${d.track}</b></div><div class="drow"><span>Местоположение</span><b>${d.city}, Новосибирская обл.</b></div><div class="drow"><span>Состояние связи</span><b>онлайн</b></div><div class="drow"><span>Мониторинг</span><b>GPS/ГЛОНАСС</b></div><div class="drow accordion-row"><div class="acc-title"><span>Значения датчиков</span><b class="acc-arrow">⌄</b></div><div class="acc-body"><b>Топливо:</b> ${d.fuelLiters} л · ${d.fuelPct}%<br><b>Зажигание:</b> ${d.speed>0?'включено':'выключено'}<br><b>Питание:</b> в норме</div></div><div class="drow accordion-row"><div class="acc-title"><span>Параметры</span><b class="acc-arrow">⌄</b></div><div class="acc-body"><b>Пробег сегодня:</b> ${mileage} км<br><b>Средняя скорость:</b> ${avg} км/ч<br><b>Моточасы:</b> ${d.hours}</div></div>`;
+ if(type==='stats') html=`<div class="stat-grid"><div><span>Пробег</span><b>${mileage} км</b><small>сегодня</small></div><div><span>Средняя</span><b>${avg} км/ч</b><small>скорость</small></div><div><span>Топливо</span><b>${d.fuelLiters} л</b><small>${d.fuelPct}% · уровень</small></div><div><span>Стоянка</span><b>${d.parking}</b><small>текущая статистика</small></div></div><div class="drawer-section-title">Динамика за день</div><div class="mini-chart"><i style="height:34%"></i><i style="height:52%"></i><i style="height:46%"></i><i style="height:78%"></i><i style="height:64%"></i><i style="height:88%"></i><i style="height:70%"></i><i style="height:94%"></i><i style="height:58%"></i><i style="height:74%"></i></div><div class="drow"><span>Максимальная скорость</span><b>${Math.max(d.speed+18,82)} км/ч</b></div>`;
+ if(type==='history') html=`<div class="timeline"><div><b>Сейчас</b><span>${d.status} · ${d.speed} км/ч · ${d.city}</span></div><div><b>09:42</b><span>Въезд в маршрутную зону</span></div><div><b>08:16</b><span>Начало движения / работы</span></div><div><b>07:50</b><span>Проверка связи с терминалом</span></div></div><div class="drow"><span>Поездки сегодня</span><b>${d.history}</b></div><div class="drow"><span>Последний маршрут</span><b>Доступен</b></div><div class="drow"><span>Последний сигнал</span><b>${d.lastPing}</b></div>`;
+ if(type==='hours') html=`<div class="hours-card"><div><span>Сегодня</span><b>${d.hours}</b></div><div><span>За неделю</span><b>38 ч 24 мин</b></div></div><div class="drawer-section-title">Режим эксплуатации</div><div class="mode-bar"><i style="width:${d.speed>0?78:24}%"></i></div><div class="drow"><span>Рабочий режим</span><b>${d.speed>0?'Активен':'Ожидание'}</b></div><div class="drow"><span>Среднее за день</span><b>5 ч 29 мин</b></div><div class="drow"><span>За месяц</span><b>142 ч 18 мин</b></div>`;
+ el('drawerContent').innerHTML=html;
+ document.querySelectorAll('.accordion-row').forEach(r=>r.addEventListener('click',()=>r.classList.toggle('expanded')));
+}
+document.querySelectorAll('[data-drawer-tab]').forEach(t=>t.addEventListener('click',()=>{document.querySelectorAll('[data-drawer-tab]').forEach(x=>x.classList.remove('active'));t.classList.add('active');renderDetail(t.dataset.drawerTab)}));
+
+function selectFleet(name,{open=false,fly=false}={}){
+ if(!fleet[name])return;
+ /* Selecting an object must never change its geographic position or recenter the map.
+    The marker stays at its fixed LngLat; camera movement is an explicit map action only. */
+ setSelectedUI(name);
+ if(open)openDetail();
+}
+document.querySelectorAll('.obj2').forEach(o=>o.addEventListener('click',()=>selectFleet(o.dataset.object,{fly:false})));
+document.querySelectorAll('[data-mobile-object]').forEach(b=>b.addEventListener('click',()=>selectFleet(b.dataset.mobileObject,{open:false,fly:false})));
+
+/* Filters */
+document.querySelectorAll('.filter').forEach(f=>f.addEventListener('click',()=>{document.querySelectorAll('.filter').forEach(x=>x.classList.remove('active'));f.classList.add('active');const mode=f.textContent.trim();document.querySelectorAll('.obj2').forEach(o=>{const stopped=o.dataset.speed==='0';o.style.display=(mode==='Все'||(mode==='Движение'&&!stopped)||(mode==='Стоянка'&&stopped))?'grid':'none'});{const src=map?.getSource('fleet-objects');if(src){Object.values(fleet).forEach(d=>d.visible=mode==='Все'||(mode==='Движение'&&d.speed>0)||(mode==='Стоянка'&&d.speed===0));src.setData(fleetGeoJSON());}}}));
+
+/* MapLibre + OpenFreeMap — без ключа */
+let map=null;
+let activeRouteSource=null;
+const mapStyle='https://tiles.openfreemap.org/styles/liberty';
+const vehicleIconFiles={
+  truck:'/assets/fleet-truck.png',
+  work:'/assets/fleet-excavator.png',
+  stopped:'/assets/fleet-truck.png',
+  moving:'/assets/fleet-truck.png',
+  suv:'/assets/fleet-suv.png',
+  sedan:'/assets/fleet-sedan.png',
+  camry:'/assets/fleet-sedan.png'
+};
+function iconTypeFor(d){
+  if(d.kind==='work') return 'work';
+  if(d.kind==='suv') return 'suv';
+  if(d.kind==='sedan'||d.kind==='camry') return 'sedan';
+  return 'truck';
+}
+function fleetGeoJSON(){
+  return {type:'FeatureCollection',features:Object.entries(fleet).map(([name,d])=>({
+    type:'Feature',
+    id:name,
+    geometry:{type:'Point',coordinates:[d.lng,d.lat]},
+    properties:{name,iconType:iconTypeFor(d),selected:name===selected,visible:d.visible!==false}
+  }))};
+}
+async function addFleetNativeLayer(){
+  if(!map)return;
+  const files=[...new Set(Object.values(vehicleIconFiles))];
+  await Promise.all(files.map(async file=>{
+    const id=file.split('/').pop().replace('.svg','');
+    if(map.hasImage(id)) return;
+    try{
+      const img=await new Promise((resolve,reject)=>map.loadImage(file,(err,image)=>err?reject(err):resolve(image)));
+      map.addImage(id,img,{pixelRatio:2,sdf:false});
+    }catch(err){console.warn('Иконка не загрузилась:',file,err);}
+  }));
+  const required=['fleet-truck','fleet-excavator','fleet-suv','fleet-sedan'];
+  const missing=required.filter(id=>!map.hasImage(id));
+  if(missing.length){ console.error('Не загружены иконки транспорта:',missing); return; }
+  if(map.getSource('fleet-objects')) map.getSource('fleet-objects').setData(fleetGeoJSON());
+  else map.addSource('fleet-objects',{type:'geojson',data:fleetGeoJSON()});
+  if(!map.getLayer('fleet-objects-layer')){
+    map.addLayer({
+      id:'fleet-objects-layer',type:'symbol',source:'fleet-objects',
+      layout:{
+        'icon-image':['match',['get','iconType'],
+          'work','fleet-excavator','suv','fleet-suv','sedan','fleet-sedan','camry','fleet-sedan','fleet-truck'],
+        'icon-size':['case',['get','selected'],0.72,0.60],
+        'icon-anchor':'center','icon-allow-overlap':true,'icon-ignore-placement':true
+      },
+      paint:{'icon-opacity':['case',['get','visible'],1,0]}
+    });
+  }
+  map.on('click','fleet-objects-layer',e=>{
+    const name=e.features?.[0]?.properties?.name;
+    if(name) selectFleet(name,{open:false,fly:false});
+  });
+  map.on('mouseenter','fleet-objects-layer',()=>{map.getCanvas().style.cursor='pointer';});
+  map.on('mouseleave','fleet-objects-layer',()=>{map.getCanvas().style.cursor='';});
+}
+function updateMapObjects(){
+  if(!map)return;
+  const src=map.getSource('fleet-objects');
+  if(src) src.setData(fleetGeoJSON());
+}
+function markerEl(d,active=false){
+ const e=document.createElement('div');
+ e.className='fleet-marker'+(active?' active':'');
+ e.title=d.city+' · '+d.status;
+ const icon=document.createElement('span');
+ icon.className='fleet-marker-icon';
+ icon.textContent=d.icon;
+ e.appendChild(icon);
+ return e;
+}
+function updateMarker(name){ updateMapObjects(); }
+function updateMapSelection(){ updateMapObjects(); drawRoute(selected); }
+const roadRoutes={};
+function setRouteStatus(text){ const n=el('routeStatus'); if(n)n.textContent=text; }
+function fallbackRoute(name){
+ const d=fleet[name];
+ /* These points are fallback geometry only; online mode replaces them with OSRM road geometry. */
+ return d.route.map(p=>[p[0],p[1]]);
+}
+function routeFeature(coords){return {type:'Feature',geometry:{type:'LineString',coordinates:coords},properties:{}};}
+function paintSelectedRoute(coords){
+ if(!map||!map.isStyleLoaded()) return;
+ const data=routeFeature(coords);
+ if(map.getSource('selected-route')) map.getSource('selected-route').setData(data);
+ else{
+   map.addSource('selected-route',{type:'geojson',data});
+   map.addLayer({id:'selected-route-glow',type:'line',source:'selected-route',layout:{'line-cap':'round','line-join':'round'},paint:{'line-color':'#00dfff','line-opacity':0.18,'line-width':11}});
+   map.addLayer({id:'selected-route-line',type:'line',source:'selected-route',layout:{'line-cap':'round','line-join':'round'},paint:{'line-color':'#00dfff','line-opacity':0.96,'line-width':4}});
+ }
+}
+async function loadRoadRoute(name){
+ const d=fleet[name];
+ if(roadRoutes[name]) return roadRoutes[name];
+ const waypoints=(d.route||[]).map(p=>`${p[0]},${p[1]}`).join(';');
+ if(!waypoints) return fallbackRoute(name);
+ const url=`https://router.project-osrm.org/route/v1/driving/${waypoints}?overview=full&geometries=geojson&steps=false&alternatives=false`;
+ try{
+   setRouteStatus('Трек · строим по дорожной сети…');
+   const res=await fetch(url,{mode:'cors'});
+   if(!res.ok) throw new Error('OSRM HTTP '+res.status);
+   const json=await res.json();
+   const coords=json?.routes?.[0]?.geometry?.coordinates;
+   if(!Array.isArray(coords)||coords.length<2) throw new Error('OSRM: нет геометрии');
+   roadRoutes[name]=coords;
+   return coords;
+ }catch(err){
+   console.warn('Маршрутизация недоступна для '+name,err);
+   const fallback=fallbackRoute(name);
+   roadRoutes[name]=fallback;
+   return fallback;
+ }
+}
+async function drawRoute(name){
+ if(!map||!fleet[name])return;
+ const coords=roadRoutes[name]||fallbackRoute(name);
+ paintSelectedRoute(coords);
+ const real=!!roadRoutes[name];
+ setRouteStatus(real?'Трек · по дорожной сети':'Трек · резервная геометрия');
+ if(!roadRoutes[name]){
+   const routed=await loadRoadRoute(name);
+   if(name===selected){paintSelectedRoute(routed);setRouteStatus('Трек · по дорожной сети');}
+ }
+}
+function fitAll(){
+ if(!map)return;
+ const bounds=new maplibregl.LngLatBounds();
+ Object.values(fleet).forEach(d=>bounds.extend([d.lng,d.lat]));
+ map.fitBounds(bounds,{padding:{top:90,bottom:155,left:90,right:90},maxZoom:9,duration:650});
+}
+async function initMap(){
+ if(!window.maplibregl){console.error('MapLibre не загрузился');return;}
+ try{
+   map=new maplibregl.Map({container:'fleetMap',style:mapStyle,center:[82.92,55.05],zoom:7.5,attributionControl:true,dragRotate:false,touchPitch:false});
+   map.addControl(new maplibregl.NavigationControl({showCompass:false}), 'top-right');
+   map.on('load',async()=>{
+     await addFleetNativeLayer();
+     map.addSource('geozone',{type:'geojson',data:{type:'Feature',geometry:{type:'Polygon',coordinates:[[[82.88,55.10],[82.94,55.12],[83.00,55.10],[82.99,55.05],[82.91,55.05],[82.88,55.10]]]},properties:{}}});
+     map.addLayer({id:'geozone-fill',type:'fill',source:'geozone',paint:{'fill-color':'#00dfff','fill-opacity':0.035}});
+     map.addLayer({id:'geozone-line',type:'line',source:'geozone',paint:{'line-color':'#2fe0a7','line-opacity':0.6,'line-width':1.5,'line-dasharray':[2,2]}});
+     await drawRoute(selected);
+     fitAll();
+   });
+   map.on('error',e=>console.error('MapLibre error',e.error||e));
+   const resizeMap=()=>{if(map){map.resize();}};
+   window.addEventListener('resize',resizeMap,{passive:true});
+   window.addEventListener('orientationchange',()=>setTimeout(resizeMap,180),{passive:true});
+   setTimeout(resizeMap,80);
+   setTimeout(resizeMap,450);
+ }catch(err){console.error('MapLibre init error',err)}
+}
+el('mapZoomIn')?.addEventListener('click',()=>map?.zoomIn({duration:350}));
+el('mapZoomOut')?.addEventListener('click',()=>map?.zoomOut({duration:350}));
+el('mapLocate')?.addEventListener('click',fitAll);
+
+selectFleet(selected);
+if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',initMap);else initMap();
+
+</script>
+</body></html>
